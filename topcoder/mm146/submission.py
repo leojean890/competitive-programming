@@ -4,7 +4,6 @@ from collections import deque, defaultdict
 from time import process_time
 import heapq
 from typing import List, Tuple
-#sys.setrecursionlimit(1000000000)
 sys.setrecursionlimit(10000000)
 
 
@@ -21,54 +20,6 @@ class PriorityQueue:
     def get(self) -> tuple:
         return heapq.heappop(self.elements)[1]
 
-# 0 generer un forcing de compo => une target
-# => y aller au plus vite
-# => envoyer K points bleus en haut à gauche puis K rouges puis K verts etc
-# => en cours
-
-# 1 tenter de rollout avec des actions random jusqu'à atteindre un certain nb de moves => en cours
-# 2 scorer avec le vrai score => en cours
-
-# 3 essayer de le HC en cuttant au milieu (idéalement à un step qui score déjà bien) => ATTENTION AUX PERFS
-
-# 4 augmenter la proba de mouvement si ça rapproche les pions de leur couleur => done mais je pense trop lent
-# 5 réduire cette proba si la composante connexe en question a 7 pions => je pense trop lent
-# (ne pas s'en approcher ni dégager un de ces pions)
-# => ATTENTION AUX PERFS
-
-# 6 limite sur le nombre de tours à déterminer =>
-# random entre quand je get une seule compo et lors de l'acquisition de la Neme compo (juste avant P*nbCasesValides/K == T)
-# nbCasesValides/K étant le nb de compos possibles au max
-#  => en cours
-
-# 7 essayer de nuancer le score => ajouter des points pour les comp de taille 6 puis 5 puis..  => 2
-# => souci : si je score sur le global ça implique de
-# - hc => lent
-# - faire des probas de mutations => testé mais pas ouf
-
-# 8 essayer juste plein de mutations random et scorer strictement la fin
-# sans s'encombrer de tout ce qu'on fait à each step
-# ça se HC plus facilement => NE MARCHE PAS
-
-# 9 si plus de P tours entre 2 créations de compos => temps gaché => 1
-
-# 10 désactiver les moves qui n'ont pas conduit à une compo => 0
-
-# 11 trouver des améliorations dans l'autre par ex plus de possibilités de mutations => 0
-
-# a) par ex ajouter des probas grace a la ligne ci dessous
-# sortedColors = list({a:b for a,b in sorted(counters.items(), key = lambda x:x[1], reverse=True)}.keys())
-
-# b) au lieu de démarrer en haut à gauche et démarrer du premier point atteint, dans l'ordre
-# essayer de changer un peu ça
-# notamment si trop de murs on peut passer sur l'autre algo ?
-# proba de murs entre 0 et 0.3, le seuil pourrait être à 10-15-20% des cases (tenter les 3)
-
-# c) egalement tenter de scorer sur le vrai score dans cette partie
-
-# d) ne pas forcément "bouger" sur la fin => en cours
-
-# e) aussi appliquer l'effacement des inutiles
 
 BIG = 160
 INIT = 16
@@ -91,7 +42,6 @@ def closestDistToColor(grid, color, i, j):
         visited.add((e,f))
 
 
-#bcc = None
 def mc(remainingTime, grid, nTurns, allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, oldscore, actions):
   global bscore, best#, bcc
   while process_time() - start_time < remainingTime:
@@ -121,8 +71,7 @@ def mc(remainingTime, grid, nTurns, allConnectedComponents, connectedComponentIn
         if nttt >= 200:
           return
 
-    #if abs(a-y) + abs(b-x) > 1:
-    #  print("s1",a,b,x,y,file=sys.stderr)
+    
 
     grid[y][x], grid[a][b] = grid[a][b], grid[y][x]
 
@@ -151,24 +100,16 @@ def mc(remainingTime, grid, nTurns, allConnectedComponents, connectedComponentIn
           sizesPerComponent[len(allConnectedComponents)] = len(visited)
           allConnectedComponents.append(visited)
 
-    # update
-    # allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, score,
-    #if abs(a-y) + abs(b-x) > 1:
-    #  print("s2",a,b,x,y,file=sys.stderr)
-    #score -= 1
+    
     actions += [(a,b,y,x)]
 
-    # proba de finir le MC selon le tour et le nb de CC
     score = P * len([size for size in sizesPerComponent.values() if size == K]) - nTurns
 
     if score > bscore:
       bscore = score
       best = actions[:]
 
-    # random entre quand je get une seule compo et lors de l'acquisition de la Neme compo (juste avant P*nbCasesValides/K == T)
-    # nbCasesValides/K étant le nb de compos possibles au max
-    #print(nTurns, 0.8*P*nbCasesValides/K, file=sys.stderr)
-    # if remainingTime == 5
+    
     FACTOR1 = 2.5*N**2
     FACTOR2 = P*nbCasesValides/K
     if nTurns > FACTOR1:
@@ -176,7 +117,6 @@ def mc(remainingTime, grid, nTurns, allConnectedComponents, connectedComponentIn
     if nTurns > 0.8*FACTOR2:
       return
     if score > oldscore:
-      #P*nbCasesValides/K == T
       if nTurns > 0.7 * FACTOR2 or nTurns > 0.9*FACTOR1:
         if random.randint(1, 10) > 3:
           return
@@ -200,14 +140,8 @@ def mc(remainingTime, grid, nTurns, allConnectedComponents, connectedComponentIn
       elif nTurns > 0.2 * FACTOR2 or nTurns > 0.4*FACTOR1:
         if random.randint(1, 100) > 98:
           return
-
-    #mc(grid, nTurns+1, allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, score, actions)
-    #(grid, nTurns, allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, oldscore, actions) = (grid, nTurns+1, allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, score, actions
-    #(grid, nTurns, allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, oldscore, actions) = (grid, nTurns+1, allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, score, actions)
     oldscore = score
     nTurns += 1
-    #if plus de CC => proba d'arrêter'
-    #mc(nGrid, 0, nallConnectedComponents, nconnectedComponentIndexPerSpot, nsizesPerComponent, iscore, [])
 
 
 N = int(input())
@@ -228,7 +162,6 @@ initgrid = [[-1 for x in range(N)] for y in range(N)]
 for r in range(N):
   for c in range(N):
     initgrid[r][c] = int(input())
-    #print(initgrid[r][c], file=sys.stderr)
     if initgrid[r][c] > 0:
       initcounters[initgrid[r][c]] += 1
       initfree.add((r,c))
@@ -283,7 +216,6 @@ if K > 5 and C > 6:
 
     for position, component in connectedComponentIndexPerSpot.items():
       nconnectedComponentIndexPerSpot[position] = component
-      # equivalent a faire un appel à copy()
 
     nsizesPerComponent = {}
 
@@ -296,7 +228,7 @@ if K > 5 and C > 6:
     nbRollouts += 1
 
 
-elif K > 2 or C < 4:# ne pas appeler ca si W trop gros car il va avoir du mal à bien tout lier
+elif K > 2 or C < 4:
   while process_time() - start_time < 5.5:
 
     grid = []
@@ -310,11 +242,9 @@ elif K > 2 or C < 4:# ne pas appeler ca si W trop gros car il va avoir du mal à
 
     futurePos = {}
 
-    #sortedColors = list({a:b for a,b in sorted(counters.items(), key = lambda x:x[1], reverse=True)}.keys())
     sortedColors = list(counters.keys()) # ajouter des probas grace a la ligne ci dessus
 
     while len(free) > 0.15*initLen:
-      #print(len(futurePos), len(free))
       q = deque()
       q.appendleft((0,0))
       visited = {(0,0)}
@@ -346,7 +276,6 @@ elif K > 2 or C < 4:# ne pas appeler ca si W trop gros car il va avoir du mal à
       q = PriorityQueue()
       q.put((y, x), x + y)
       futurePos[(y, x)] = chosenColor
-      # print(y,x,chosenColor,file=sys.stderr)
       justPut.add((y, x))
       sortedJustPut.append((y, x))
       free.remove((y, x))
@@ -400,8 +329,6 @@ elif K > 2 or C < 4:# ne pas appeler ca si W trop gros car il va avoir du mal à
             visited.add((a,b))
             q.appendleft((a,b,[(a,b)]+path))
 
-      #print("\n\n\n\n\n", file=sys.stderr)
-
       for i in range(len(path)-1):
         a,b=path[i]
         c,d=path[i+1]
@@ -435,13 +362,7 @@ elif K > 2 or C < 4:# ne pas appeler ca si W trop gros car il va avoir du mal à
           sizesPerComponent[len(allConnectedComponents)] = len(visited)
           allConnectedComponents.append(visited)
 
-    # update
-    # allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, score,
-    #if abs(a-y) + abs(b-x) > 1:
-    #  print("s2",a,b,x,y,file=sys.stderr)
-    #score -= 1
 
-    # proba de finir le MC selon le tour et le nb de CC
     score = P * len([size for size in sizesPerComponent.values() if size == K]) - len(candidate)
 
     if score > bscore:
@@ -480,7 +401,6 @@ elif K > 2 or C < 4:# ne pas appeler ca si W trop gros car il va avoir du mal à
 
   nbCasesValides = len(allVisitedSpots)
 
-  #iscore = P*len([size for size in sizesPerComponent.values() if size == K])
   bscore = bscorep1# iscore
   while process_time() - start_time < 7.5:
     nGrid = []
@@ -496,7 +416,6 @@ elif K > 2 or C < 4:# ne pas appeler ca si W trop gros car il va avoir du mal à
 
     for position, component in connectedComponentIndexPerSpot.items():
       nconnectedComponentIndexPerSpot[position] = component
-      # equivalent a faire un appel à copy()
 
     nsizesPerComponent = {}
 
@@ -524,14 +443,11 @@ else:
     futurePos = {}
     candidate = []
 
-    #sortedColors = list({a:b for a,b in sorted(counters.items(), key = lambda x:x[1], reverse=True)}.keys())
     sortedColors = list(counters.keys()) # ajouter des probas grace a la ligne ci dessus
     allSettled = set()
 
     while len(free) > 0.03*initLen:
-      #if process_time() - start_time > 9:
-      #  break
-      #print(len(futurePos), len(free))
+
       q = deque()
       q.appendleft((0,0))
       visited = {(0,0)}
@@ -569,7 +485,6 @@ else:
             nbPut = 0
             changed = True
 
-            #print("\n\n\n", file=sys.stderr)
 
             justPut = set()
             sortedJustPut = []
@@ -577,7 +492,6 @@ else:
             q = PriorityQueue()
             q.put((y,x),x+y)
             nfuturePos[(y, x)] = chosenColor
-            # print(y,x,chosenColor,file=sys.stderr)
             justPut.add((y, x))
             sortedJustPut.append((y, x))
 
@@ -599,7 +513,7 @@ else:
 
             if len(justPut) < K:
               continue
-            #
+            
             sortedJustPut = list(sorted(sortedJustPut, key=lambda h:h[0]+h[1]))
             settled = set()
             foundPaths = []
@@ -620,7 +534,7 @@ else:
                   break
 
                 for (a,b) in ((i+1,j), (i-1,j), (i,j+1), (i,j-1)):
-                  if (a,b) not in visited|settled|allSettled and N > a >= 0 and N > b >= 0 and nGrid[a][b] > 0:# and grid[a][b] > 0:
+                  if (a,b) not in visited|settled|allSettled and N > a >= 0 and N > b >= 0 and nGrid[a][b] > 0:
                     visited.add((a,b))
                     q.appendleft((a,b,[(a,b)]+path))
 
@@ -633,14 +547,12 @@ else:
               bestColor = chosenColor
 
       if bestPaths:
-        #print("\n\n\n\n\n", file=sys.stderr)
         for path in bestPaths:
           for i in range(len(path)-1):
             a,b=path[i]
             c,d=path[i+1]
             candidate.append((a,b,c,d))
             grid[a][b], grid[c][d] = grid[c][d], grid[a][b]
-            #print((a,b,c,d), futurePos[(y,x)], file=sys.stderr)
         futurePos = bestFuturePos
         free = free.difference(bestPut)  # settled
         allSettled |= bestPut
@@ -657,8 +569,6 @@ else:
     allVisitedSpots = set()
 
     for r in range(N):
-      #if process_time() - start_time > 9:
-      #  break
       for c in range(N):
         if (r, c) not in allVisitedSpots and grid[r][c] != 0:
           q = deque()
@@ -678,16 +588,7 @@ else:
           sizesPerComponent[len(allConnectedComponents)] = len(visited)
           allConnectedComponents.append(visited)
 
-    #if process_time() - start_time > 9:
-    #  break
 
-    # update
-    # allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, score,
-    #if abs(a-y) + abs(b-x) > 1:
-    #  print("s2",a,b,x,y,file=sys.stderr)
-    #score -= 1
-
-    # proba de finir le MC selon le tour et le nb de CC
     score = P * len([size for size in sizesPerComponent.values() if size == K]) - len(candidate)
 
     if score > bscore:
@@ -726,7 +627,6 @@ else:
 
   nbCasesValides = len(allVisitedSpots)
 
-  #iscore = P*len([size for size in sizesPerComponent.values() if size == K])
   bscore = bscorep1# iscore
   while process_time() - start_time < 7:
     nGrid = []
@@ -742,7 +642,6 @@ else:
 
     for position, component in connectedComponentIndexPerSpot.items():
       nconnectedComponentIndexPerSpot[position] = component
-      # equivalent a faire un appel à copy()
 
     nsizesPerComponent = {}
 
@@ -750,7 +649,6 @@ else:
       nsizesPerComponent[component] = size
 
     mc(7, nGrid, len(bestp1), nallConnectedComponents, nconnectedComponentIndexPerSpot, nsizesPerComponent, bscorep1, bestp1[:])
-
 
     nbRollouts += 1
 
@@ -797,7 +695,6 @@ if False:
 
     for position, component in connectedComponentIndexPerSpot.items():
       nconnectedComponentIndexPerSpot[position] = component
-      # equivalent a faire un appel à copy()
 
     nsizesPerComponent = {}
 
@@ -849,13 +746,6 @@ while process_time() - start_time < 9.5:#tuner les limites de temps et le random
         sizesPerComponent[len(allConnectedComponents)] = len(visited)
         allConnectedComponents.append(visited)
 
-  # update
-  # allConnectedComponents, connectedComponentIndexPerSpot, sizesPerComponent, score,
-  #if abs(a-y) + abs(b-x) > 1:
-  #  print("s2",a,b,x,y,file=sys.stderr)
-  #score -= 1
-
-  # proba de finir le MC selon le tour et le nb de CC
   score = P * len([size for size in sizesPerComponent.values() if size == K]) - len(current)
 
   if score > bscore:
@@ -868,10 +758,7 @@ print("bscore", bscore, file=sys.stderr)
 print("nbRollouts", nbRollouts, file=sys.stderr)
 print(len(best))
 
-#print(bcc, file=sys.stderr)
 for action in best:
   print(*action)
-
-
 
 sys.stdout.flush()
