@@ -21,13 +21,10 @@ def getNext(instruction, dir):
         if instruction == "L":
             return 2
 
-
-
-
 lines = []
 
 while 1:
-    # try:
+
     line = input()
     if line == "":
         break
@@ -36,8 +33,6 @@ while 1:
             line += (len(lines[0]) - len(line))*" "
         lines.append(line)
 
-        # except Exception:
-        #    break
 
 instructions = input()
 
@@ -50,7 +45,7 @@ while current < len(instructions):
     nxt = current
     while nxt+1 < len(instructions) and instructions[nxt+1].isdigit():
         nxt += 1
-    #print(instructions[current:nxt+1])
+
     print((y, x), dir)
     toMove = int(instructions[current:nxt+1])
     nb = 0
@@ -78,7 +73,7 @@ while current < len(instructions):
                 currY = y
                 while lines[(currY + 1) % len(lines)][x] == " ":
                     currY = (currY + 1) % len(lines)
-                    #print(currY, x, lines[currY][x], lines[(currY + 1) % len(lines)][x])
+
                 if lines[(currY + 1) % len(lines)][x] == ".":
                     y = (currY + 1) % len(lines)
                 else:
