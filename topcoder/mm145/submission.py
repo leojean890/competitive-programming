@@ -2,31 +2,6 @@ import sys
 import time
 from collections import defaultdict, deque
 
-# 0 pbm actuel : je delaisse parfois des piles d'étages successifs, notamment haut et bas
-# mieux répartir (search bfs mc ou hongrois)
-# permet aussi de mieux gérer le fait que plusieurs ascenseurs arrivent au même endroit
-# et prennent de manière opti le nb de personnes (genre chacun a 2 places donc on en récup 4)
-
-# 1 enlever une pondération si un ascenseur se rapproche des autres (-= abs(futurePosAsc1, asc2) )
-# en moyenne (ça les forcera à s'éloigner les uns des autres)
-
-# 1 enlever une pondération si un ascenseur se rapproche d'un objectif qui est plus proche d'un autre ascenseur
-# surtout si c aussi celui de l'autre
-
-# 2 bien cibler les directions (un ascenseur => même dir ?) => waiting[floor][direction] => dur sans simu
-
-# 3 attendre au milieu des zones vides qd on a pas de mecs qui attendent => rare je suppose
-
-# déjà tuné => il est plus important de déposer que d'en prendre
-# 4 => mais on peut supposer que plusieurs ascenseurs vont en prendre
-# il faut simuler au global
-
-# 4 bien cibler les cas où on sette : objectives[i] = None
-# ça m'a l'air pas mal car on l'annule qd on l'atteint et on peut aussi le moduler
-
-# attention, si on maintient une liste d'objectifs mais qu'un truc plus intéressant se présente
-# il faut être prêt à changer => DONE
-
 F = int(input())
 start_time = time.process_time()
 L = int(input())
@@ -46,7 +21,6 @@ for i in range(L):
   lifts[i] = {"floor": int(input())-1, "open": False, "passengers": defaultdict(int), "nbPass": 0}
 
 for turn in range(1,1001):
-  #print("turn", turn, file=sys.stderr)
   newPeople = int(input())
   for i in range(newPeople):
     temp = input().split(" ")
@@ -86,21 +60,6 @@ for turn in range(1,1001):
 
   elapsedTime = int(input())
 
-  # simu : depth par depth on a un branching par asc (up, down, (open sauf si c en heuristique)) (et close est en heuristic))
-  # pour une depth on a donc 2**L ou 3**L combinaisons
-  # donc entre 2 et 32 ou entre 3 et 243 combinaisons
-  # si on se limite à up/down en simu et le reste en heuristique, on peut avoir un branching de 32 au max
-  # évaluer à depth 3 c déjà 32768 states au max (en 10ms)
-  # adapter la depth max au branching (à L) ou plutôt iterative deepening
-  # eventuellement beamer voir MC (pas sûr pour hc ga sa)
-  # l'eval sera une combinaison
-  # du nb de personnes qui attendent au niveau des étages voisins
-  # du nb de personnes qu'on a récup
-  # du nb de personnes qu'on a déposées
-  # de la distance entre ascenseurs
-  # a la fin retourner la premiere action du chemin gagnant
-  # le state est (lifts, waiting, objectives) ou plutot (lifts, waiting)
-
   def bfs(lifts, waiting, maxDepth):
 
     q = deque()
@@ -110,13 +69,11 @@ for turn in range(1,1001):
 
     while q:
       if time.process_time() - start_time > turn*0.0075 and maxDepth > 1:
-        #print("a",maxDepth, file=sys.stderr)
         return
 
       (depth, currLift, lifts, waiting, nbRecup, nbPut, first) = q.pop()
 
       if depth == maxDepth:
-        #print("b",maxDepth, file=sys.stderr)
 
         score = 1000000*(nbRecup + nbPut) - 10*sum([waiting[floor]["global"] for floor in range(F)])
         bsts = defaultdict(int)
@@ -130,7 +87,6 @@ for turn in range(1,1001):
             lift2 = lifts[j]
             score += 10*abs(floor - lift2["floor"]) #distance entre ascenseurs
           for cfloor in range(F):
-            # j'enleve du score si bcp attendent loin de mon asc le plus proche (ou de mes ascs au global)
             score -= waiting[cfloor]["global"]*abs(floor - cfloor)
             if cfloor in lift["passengers"]:
               d = F*lift["passengers"][cfloor] + (F-abs(cfloor - floor))# + waiting[cfloor]["global"]
@@ -148,7 +104,6 @@ for turn in range(1,1001):
           score += (F+1-abs(bst-floor))*(nbSpotsAvailableInLift + 2*nbNewSpots + 10*nbWhoWillGoDown)
 
           bsts[i] = bst
-            # a garder ?
         for cfloor in range(F):
           closestDist = F
           for i in range(L):
@@ -159,22 +114,17 @@ for turn in range(1,1001):
               closestDist = d
           score -= 500*waiting[cfloor]["global"] * closestDist
 
-
-        #print(first, score, file=sys.stderr)
         if score > bestScore:
           bestScore = score
           best = (first, bsts)
         continue
-      #(depth, currLift, lifts, waiting, nbRecup, nbPut, first)
       nextLift = (currLift+1)%L
       nextDepth = depth if nextLift else depth+1
       nextLifts = {}
       nFirst = first
-      #lifts[i] = {"floor": int(input()) - 1, "open": False, "passengers": defaultdict(int), "nbPass": 0}
       for (a, b) in lifts.items():
         nextLifts[a] = {"floor": b["floor"], "open": b["open"], "passengers": b["passengers"].copy(), "nbPass": b["nbPass"]}
       lift = nextLifts[currLift]
-      #waiting[floor]["global"]
       nextWaiting = defaultdict(dict)
       for (a, b) in waiting.items():
         nextWaiting[a]["global"] = b["global"]
@@ -198,11 +148,10 @@ for turn in range(1,1001):
 
         if nbGoingDown > 0 or (waiting[floor]["global"] > 0 and nbSpotsAvailableInLift >= 0):
 
-          #nbSpotsAvailableInLift = totalNbSpots+nbWhoWillGoDown-nbTakenSpots-nbNewSpots
           howManyCanGoUp = totalNbSpots+nbWhoWillGoDown-nbTakenSpots
           realNbNewSpots = min(howManyCanGoUp, nbNewSpots)
           nextLifts[currLift]["open"] = True
-          if depth == 0:  # not nFirst:
+          if depth == 0:  
             nFirst[currLift] = "open"
           nextWaiting[floor]["global"] -= realNbNewSpots
           nextLifts[currLift]["passengers"][floor] -= realNbNewSpots
@@ -211,8 +160,7 @@ for turn in range(1,1001):
           #nbRecup += (100/(depth+1))*realNbNewSpots
           #nbPut += (100/(depth+1))*nbWhoWillGoDown
           nbPut += nbWhoWillGoDown * coeffPatience**depth
-          # gerer nextWaiting[floor]["D"] nextWaiting[floor]["U"] avec le vrai ordre (file) et proba etages du bon cote
-          # ainsi, realimenter pour tout k lift["passengers"][k]
+          
           q.appendleft((nextDepth, nextLift, nextLifts, nextWaiting, nbRecup, nbPut, nFirst))
         else:
 
@@ -241,8 +189,7 @@ for turn in range(1,1001):
 
             q.appendleft((nextDepth, nextLift, nextLifts, nextWaiting, nbRecup, nbPut, nFirst))
 
-      # tuner eval
-    #print("c",maxDepth, file=sys.stderr)
+      
 
     return best
 
