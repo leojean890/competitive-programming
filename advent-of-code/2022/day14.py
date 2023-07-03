@@ -24,9 +24,6 @@ for i in range(179):
                 rocks.add((x2, y))
 
 
-
-# si resultingY > 171, alors stop counter
-
 for x in range(-500, 1000):
     rocks.add((x, 173))
 
