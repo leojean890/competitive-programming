@@ -19,7 +19,6 @@ while 1:
         i += 1
 
     except Exception as ex:
-        #print(ex)
         break
 
 print(blizzards)
@@ -34,7 +33,7 @@ q.appendleft((start,0))
 visited = set()
 currentDepth = -1
 while q:
-    (y,x), depth = q.pop()# pas besoin de A* sur la distance
+    (y,x), depth = q.pop()
 
     if (y,x) == end and step in (0,2):
         print(depth)
@@ -82,8 +81,6 @@ while q:
                     nblizzards.add((len(lines)-2, j, dir))
                     blizzardsPos.add((len(lines)-2, j))
             elif dir == "v":
-                #if (i,j) == (4,3):
-                #    print((i+1, j) not in walls)
                 if (i+1, j) not in walls:
                     nblizzards.add((i+1,j,dir))
                     blizzardsPos.add((i+1,j))
@@ -92,7 +89,6 @@ while q:
                     blizzardsPos.add((1,j))
         blizzards = nblizzards
 
-        #print(list(sorted(blizzards)))
         currentDepth = depth
 
     for (a,b) in ((y+1,x),(y-1,x),(y,x+1),(y,x-1),(y,x)):
