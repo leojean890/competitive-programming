@@ -33,8 +33,7 @@ for i in range(3006709229900, 3006730099830):# 3006709232464 dicho
                     temp1, temp2 = b.split(" + ")
                     if type(d[temp1]) == int == type(d[temp2]):
                         d[a] = int(d[temp1]) + int(d[temp2])
-                    #else:
-                    #    print(a, d[temp1], d[temp2])
+
                 if " - " in b:
                     temp1, temp2 = b.split(" - ")
                     if type(d[temp1]) == int == type(d[temp2]):
