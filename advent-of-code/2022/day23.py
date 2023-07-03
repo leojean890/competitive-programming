@@ -49,10 +49,10 @@ for turn in range(1000):#10
     elves = newElves
 
 
-mX = sys.maxsize#0
-mY = sys.maxsize#0
-MX = -sys.maxsize#max([len(line) for line in lines])
-MY = -sys.maxsize#len(lines)-1
+mX = sys.maxsize
+mY = sys.maxsize
+MX = -sys.maxsize
+MY = -sys.maxsize
 
 for (y,x) in elves:
     if y < mY:
