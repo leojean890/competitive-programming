@@ -11,13 +11,13 @@ while 1:
 n = len(list)
 for iter in range(10):
     for i in range(n):
-        #print(i)
+
         for j in range(n):
             elt = list[j]
             if elt["initCoord"] == i:
                 break
         value = list[j]["value"]
-        #index = j
+
         elt = list[j]
         if value != 0:
             del list[j]
