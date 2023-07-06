@@ -1,7 +1,6 @@
 
 keys = set()
 counter = 0
-cc = 0
 for i in range(2176):
     l = input()
     if not l:
