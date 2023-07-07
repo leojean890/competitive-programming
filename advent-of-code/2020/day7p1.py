@@ -17,7 +17,6 @@ visited = {"shiny gold bag"}
 while q:
     current = q.pop()
     if current in neighs:
-        #for nb,neigh in neighs[current]:
         for neigh in neighs[current]:
             if neigh not in visited:
                 q.appendleft(neigh)
