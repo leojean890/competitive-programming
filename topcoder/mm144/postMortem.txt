@@ -1,0 +1,16 @@
+I used an approach that didn't work equally for each seed :
+
+1) find the spot that will be reached last by the water
+
+2) generate a set of blocks which will form a "not reached by water area"
+For this, I first generate pseudo-randomly a set of blocks while considering constraints on positions
+I made sure that generated blocks were not too close with each other, that each of them had only a few neighbors.
+
+3) optimize this set of blocks using hill climbing (score = size of area - nb of blocks)
+constraint = "area is not reached by water"
+
+4) send my builders there and make sure they are also protected against the water
+
+On some levels I can reach 150 pts (like seeds 2, 21, 23, 24, 39, 57 and 64), but this kind of algo is not adaptative enough to get a very high overall score.
+
+Before that, I tried to use a beam search for each builder, but my max reached depth was 15, my eval was not good enough, so my score was even lower.
