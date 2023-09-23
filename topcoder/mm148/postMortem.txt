@@ -1,0 +1,78 @@
+For each turn among 1000, I execute one bfs per frog.
+
+
+
+
+My eval only counts 3 things :
+
+- amount of accumulated coins
+- y position
+
+- am I on a log going to the right and positionned on the left average of the map (x range) ? => increase score 
+- am I on a log going to the right and positionned on the right average of the map (x range) ? => decrease score 
+(resp left)
+
+
+
+
+To drop coins in the end, I had to revert the y value in the eval since turn 870.
+
+I also track gathered coins per frog, and I've some hardcoded threaholds of KL KW and W to sometimes give back coins earlier and avoid the risk to lose all of them while falling into the sea.
+
+That happens sometimes when the frog is stuck and has no escape and has to fall.
+
+
+
+
+My frogs may stay in place in order to reach better logs, but I only enable it for 2 turns in a row.
+
+
+
+
+With all that, my score is 47.9, and my rank is 10th.
+
+I also shared code : https://github.com/leojean890/competitive-programming/tree/main/topcoder/mm148
+
+
+best scores per seed :
+
+1=1346.0
+2=18018.0
+3=26976.0
+4=19481.0
+5=10048.0
+6=5948.0
+7=10734.0
+8=11674.0
+9=8211.0
+10=2581.0
+
+
+
+
+Things that didn't work :
+
+
+I tried to improve the turn 870 threshold.
+During replays I noted some of those times (several trials for a few seeds) and tried to generalize and tune a linear combination of height, gap width, log length, and width, according to that, but it was not perfect.
+I could have automated it (collect many possible times for every seed) and generate multiple stats per seed and generalize that for each combination of (height, gap width, log length, width), but I didn't dig enough for that. 
+ 
+
+
+
+I tried to use A* instead of simple BFS according to the upper described heuristics but it worked less (to order moves while some time is remaining).
+I didn't try BS. I could have, but the A* heuristic didn't help, so I was not confident.
+
+
+
+I didn't try enough ideas to make frogs split more, my approach is too individualistic.
+
+bowwowforeach wrote "Frogs should be in different rows from each other.", it may be a good way to spread them better.
+
+I could try to tune that idea locally to see how much it would improve my score if for example I add penalty to eval if 2 frogs share the same row, or if I strictly forbid it !
+
+
+
+
+When huge KL and low KW, I tried to add some factice logs on x == 0, x == W-1, at depth > N (N may be 3, .. 10), because of huge proba of logs appearing, but it didn't work.
+
