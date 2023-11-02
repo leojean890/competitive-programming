@@ -2,5 +2,5 @@ Optimize frogs movement in order to farm coins, navigating between logs, and tak
 
 statement : https://www.topcoder.com/challenges/8da75645-3b0d-43f3-af4e-fbd2096ab76d?tab=details
 
-reach score : 0.479 * max score
+reached score : 0.49 * max score
 reached rank : 10/28
