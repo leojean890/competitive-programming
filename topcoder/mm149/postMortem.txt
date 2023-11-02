@@ -1,0 +1,10 @@
+Hi, very interesting problem, thanks for creating it, and congratz to winners !
+
+I begin with an initial greedy solution that places sprinklers successively where they cover the highest amount of uncovered yet plants.
+
+And I greedily assign pipes to successive sprinklers sorted by distance to closest watersource (shortest distance first) and then 
+bfs from new not_yet_assigned sprinkler to closest already set pipe/watersource.
+
+I use a HC to optimize sprinklers and then another HC to optimize pipes (scoring == referee score). 
+
+My last submit reached 81.78 (I think that my best version would reach like +0.5 only)
