@@ -8,3 +8,4 @@ The fields and their sizes and elements positions are generated randomly accordi
 
 statement : https://www.topcoder.com/challenges/13d71244-c38c-49eb-84f1-c4951c1a771e?tab=details
 
+reached score : 0.82 * max score
