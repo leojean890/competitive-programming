@@ -1,0 +1,13 @@
+I reached 144 moves using A*.
+
+My scoring function was about the amount of correctly placed knights and the y coordinates (y or 7-y according to color).
+
+I tuned those 2 criterions with the depth to optimize the scoring.
+
+I also hashed the states to pass if already visited.
+
+I should have thought of beam search and I should have tried it with my A* eval.
+
+Another drawback to have used A* is the amount of used RAM at each moment.
+
+At least, with beam search, states are filtered at each depth, and RAM wouldn't be too much filled.
