@@ -120,14 +120,14 @@ func main() {
 
 				err := math.Abs(moy - clustersInitRsrpMoy[cluster])
 				errWc := math.Abs(clustersInitRsrpWCMoy[cluster] - moyWC)
-        var sc float64 = 0
-        if err < 10 {
-            sc = 1 - err/10
-        }
-        var scWc float64 = 0
-        if errWc < 0.2 {
-            scWc = 1 - errWc/0.2
-        }
+			        var sc float64 = 0
+			        if err < 10 {
+			            sc = 1 - err/10
+			        }
+			        var scWc float64 = 0
+			        if errWc < 0.2 {
+			            scWc = 1 - errWc/0.2
+			        }
 			    var score float64 = (sc + scWc) * math.Min(initnElements/(nElements-1), 20.0)
 
 				if score > M {
