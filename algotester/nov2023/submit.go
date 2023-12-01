@@ -128,7 +128,7 @@ func main() {
 			        if errWc < 0.2 {
 			            scWc = 1 - errWc/0.2
 			        }
-			    var score float64 = (sc + scWc) * math.Min(initnElements/(nElements-1), 20.0)
+			    	var score float64 = (sc + scWc) * math.Min(initnElements/(nElements-1), 20.0)
 
 				if score > M {
 					M = score
