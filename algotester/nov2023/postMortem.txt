@@ -1,0 +1,3 @@
+I tried HC and other searchs to optimize directly the final score adding or removing samples (a search per group with discretized time limit per group => 9.5s in total spreaded equally) 
+
+I had more difficulties, because the ratio is global, and I tune groups locally (for each group)
