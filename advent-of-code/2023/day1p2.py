@@ -1,12 +1,12 @@
 
 
 s = 0
-convert = {"zero":"0","one":"1", "two":"2", "three":"3", "four":"4", "five":"5", "six":"6", "seven":"7", "eight":"8", "nine":"9"}
+convert = {"one":"1", "two":"2", "three":"3", "four":"4", "five":"5", "six":"6", "seven":"7", "eight":"8", "nine":"9"}
 for i in range(1000):
     line = input()
     digits = []
     for j in range(len(line)):
-        for nb in ("zero","one", "two", "three", "four", "five", "six", "seven", "eight", "nine"):
+        for nb in ("one", "two", "three", "four", "five", "six", "seven", "eight", "nine"):
             value = line[j:j + len(nb)]
             if value == nb:
                 digits.append(convert[value])
