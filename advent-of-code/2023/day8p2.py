@@ -37,14 +37,15 @@ def ppcm(a,b):
         else: a-=b
     return p/a
 
-#print(indexes)
+# print(indexes)
 # defaultdict(<class 'list'>, {'RMA': [21883], 'NXA': [19667], 'GDA': [14681], 'PLA': [16897], 'QLA': [13019], 'AAA': [11911]})
 
 # 2 trucs bizarres :
 
-# 1 dans le statement, ce n'est pas précisé un élément par liste 
+# 1 Dans le statement, il n'est pas précisé qu'il n'y a qu'un élément par liste (qu'une sortie par chemin démarrant de chaque entrée), mais c'est le cas
 
-# 2 ça fonctionne alors que je ne prends pas en compte la taille des cycles, mais j'ai considéré un TP entre le Z et le A ..
+# 2 ça fonctionne, alors que je ne prends pas en compte la taille des cycles, commme s'il y avait un téléport entre le Z et le A ..
+# Il s'avère que tous les jeux de données générés sont comme ça, alors que ce n'est pas précisé dans le statement.
 
 print(ppcm(ppcm(ppcm(ppcm(ppcm(21883, 19667),14681),16897),13019),11911)) # 10151663816849
 
