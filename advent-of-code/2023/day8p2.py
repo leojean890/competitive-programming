@@ -46,6 +46,7 @@ def ppcm(a,b):
 
 # 2 ça fonctionne, alors que je ne prends pas en compte la taille des cycles, commme s'il y avait un téléport entre le Z et le A ..
 # Il s'avère que tous les jeux de données générés sont comme ça, alors que ce n'est pas précisé dans le statement.
+# tous les cycles ont la taille du premier. Sinon, il aurait fallu télescoper (utiliser un modulo de la taille du cycle qui se répète)
 
 print(ppcm(ppcm(ppcm(ppcm(ppcm(21883, 19667),14681),16897),13019),11911)) # 10151663816849
 
