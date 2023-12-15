@@ -60,7 +60,6 @@ for turn in range(total_nb_turns):
                     if found == trn:
                         total = 0
                         for i in range(N):
-                            print(lines[i])
                             total += lines[i].count("O") * (N - i)
 
                         print(total)  # 104533
