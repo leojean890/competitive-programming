@@ -1,6 +1,4 @@
 
-
-
 import heapq
 import sys
 from typing import List, Tuple
@@ -30,7 +28,6 @@ N = 141
 lines = []
 for ind in range(N):
     lines.append([int(i) for i in input()])
-visited = tuple()
 q = PriorityQueue()
 q.put((0, 0, -1, -1, 0), 0)
 dd = {}
