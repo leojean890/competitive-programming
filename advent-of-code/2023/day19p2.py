@@ -1,4 +1,5 @@
-def validate(rule, dUnapplyCond, dApplyCond):
+
+def updateIntervals(rule, dUnapplyCond, dApplyCond):
     if "<" in rule[0]:
         var, val = rule[0].split("<")
         val = int(val)
@@ -6,14 +7,11 @@ def validate(rule, dUnapplyCond, dApplyCond):
 
         if val > b:
             dUnapplyCond[var] = (-1,-1)
-            return rule[1], dUnapplyCond, dApplyCond
-
-        if a <= val <= b:
+        elif a <= val <= b:
             dApplyCond[var] = (a,val-1)
             dUnapplyCond[var] = (val,b)
-            return rule[1], dUnapplyCond, dApplyCond
-
-        dApplyCond[var] = (-1, -1)
+        else:
+            dApplyCond[var] = (-1, -1)
         return rule[1], dUnapplyCond, dApplyCond
 
     if ">" in rule[0]:
@@ -23,14 +21,11 @@ def validate(rule, dUnapplyCond, dApplyCond):
 
         if val > b:
             dApplyCond[var] = (-1,-1)
-            return rule[1], dUnapplyCond, dApplyCond
-
-        if a <= val <= b:
+        elif a <= val <= b:
             dUnapplyCond[var] = (a,val)
             dApplyCond[var] = (val+1,b)
-            return rule[1], dUnapplyCond, dApplyCond
-
-        dUnapplyCond[var] = (-1, -1)
+        else:
+            dUnapplyCond[var] = (-1, -1)
         return rule[1], dUnapplyCond, dApplyCond
 
     return rule, dUnapplyCond, dApplyCond
@@ -55,7 +50,7 @@ def dfs(d,current):
         dUnapplyCond = {}
         for k, v in d.items():
             dUnapplyCond[k] = v
-        ncurrent, dUnapplyCond, dApplyCond = validate(rule, dUnapplyCond, dApplyCond)
+        ncurrent, dUnapplyCond, dApplyCond = updateIntervals(rule, dUnapplyCond, dApplyCond)
         M += dfs(dApplyCond, ncurrent)
         d = dUnapplyCond
 
