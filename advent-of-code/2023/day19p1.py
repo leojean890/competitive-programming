@@ -52,4 +52,4 @@ for i in range(17):
         if current == "A":
             total += sum(d.values())
 
-print(total)
+print(total) # 353046
