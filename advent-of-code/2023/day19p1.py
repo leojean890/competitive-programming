@@ -13,7 +13,7 @@ def validate(rule):
     return rule
 
 
-for i in range(17):
+for i in range(707):
     line = input()
     if not change:
         if not line:
