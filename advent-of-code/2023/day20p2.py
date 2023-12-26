@@ -37,9 +37,8 @@ for parent in sons:
             state[son][parent] = LOW
 
 
-occ = defaultdict(list)
+occurencesParInverseurParent = defaultdict(list)
 
-# sb nd ds hf
 for turn in range(1, 10000):
     actions = deque()
     for son in sons["broadcaster"]:
@@ -59,9 +58,9 @@ for turn in range(1, 10000):
             toSend = LOW if all(state[parent][gp] == HIGH for gp in state[parent]) else HIGH
             if toSend == HIGH:
                 if parent in ("sb", "nd", "ds", "hf"):
-                    occ[parent].append(turn) 
-                    # on ppcm les 4 cycles des entrées du dernier inverseur 
-                    # 4 entrées hardcodées mais on peut les détecter dans les inputs
+                    occurencesParInverseurParent[parent].append(turn) 
+                    # ppcm des 4 cycles des entrées du dernier inverseur 
+                    # 4 entrées associées hardcodées, mais on peut les détecter automatiquement dans les inputs pour rendre le code plus générique si les inputs de tlm ont cette spécificité
             for son in sons[parent]:
                 actions.appendleft((son, toSend))
                 if modules[son] == CONJUNCTION:
@@ -75,7 +74,7 @@ def ppcm(a,b):
     return p/a
 
 res = 1
-for l in occ.values():
+for l in occurencesParInverseurParent.values():
     res = ppcm(res, l[1]-l[0])
 
 print(res) # 215252378794009
