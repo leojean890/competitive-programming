@@ -3,7 +3,7 @@ several algos tried :
 1018924 with greedy
 1020796 with dfs with the same greedy (try actions by local score order)
 1021311 with A* (actions sorted by global score order - 100*depth)
-1027948 with BS (same scoring)
+1027948 with BS (width : 12) (same scoring)
 
 1105151 : rafbill's algo
 
