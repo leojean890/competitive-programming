@@ -1,0 +1,5 @@
+find a target minimizing the amoung of errors, and then send queens at wanted places (top-left first), 
+
+minimizing distances greedily one after another
+
+possible improvement : optimize the appariement using Hungarian algorithm
