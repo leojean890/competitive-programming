@@ -17,7 +17,6 @@ for w in range(21):
         if w == z == 10:
             for i in range(W):
                 clines[i+10-W//2][10-W//2:10+W//2] = lines[i]
-                #clines[i+10-W//2][10-W//2:10+W//2-1] = lines[i] w pair ?
 
         zLines.append(clines)
     allLines.append(zLines)
@@ -59,4 +58,4 @@ for iteration in range(6):
         newAllLines.append(newZLines)
 
     allLines = newAllLines
-print(iteration, counter) # 295
+print(iteration, counter) # 1972
