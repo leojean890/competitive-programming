@@ -30,7 +30,6 @@ total = 0
 
 for it in range(372):
     line = list(input())
-    print(line)
 
     i = 0
     while i < len(line):
@@ -63,7 +62,7 @@ for it in range(372):
                         ctr -= 1
                     j += 1
                 line.insert(j, ")")
-                # ici on compte tout le bloc puis insert à la fin
+                # ici on parcourt tout le bloc puis insert à la fin
         i += 1
 
     score = dfs(line)
