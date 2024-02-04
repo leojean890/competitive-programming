@@ -1,5 +1,3 @@
-total = 0
-
 
 def dfs(line):
     score = 0
