@@ -101,7 +101,7 @@ for a,b in stats.items():
 probaToGetEachTypColorPieceCombPerAmountOfColoured = {}
 for i in range(N-1):
   nIparmiN = math.factorial(N) / (math.factorial(N - i) * math.factorial(i))
-  probaToGetEachTypColorPieceCombPerAmountOfColoured[i] = stats[i] / (C * nIparmiN) # *N car invariant par rotation
+  probaToGetEachTypColorPieceCombPerAmountOfColoured[i] = stats[i] / (C * nIparmiN)
 
 dfs(0, tuple())
 numMoves = 1000
