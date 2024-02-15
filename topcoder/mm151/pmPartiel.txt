@@ -1,0 +1,5 @@
+fill targets from sources greedily
+
+calculer la proba qu'une source (quand on en joue une ou si on la discard) générée par la suite aléatoirement puisse fit parfaitement sur la couleur actuelle d'une target en entrant dans les spots libres (pas encore remplis)
+
+l'utiliser pour choisir si on discard ou pas
