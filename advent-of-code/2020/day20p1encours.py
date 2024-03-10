@@ -54,5 +54,5 @@ for i in range(NL):
     bords = [lines[0],"".join(transposed[-1]),lines[-1],"".join(transposed[0])]
     allTiles[tile] = bords
 
-dfs(0, [], []) # 106042233977761 NON (too high), 15207514795159 TOO LOW
+dfs(0, [], []) # 106042233977761 NON (too high), 15207514795159 ou 11783602038287 TOO LOW -- 11696079884413 30705862039253 FAIL
 
