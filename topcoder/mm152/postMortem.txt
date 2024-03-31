@@ -1,0 +1,37 @@
+
+
+Hi ! I enjoy those contests, thanks @dimkadimon for creating them ! 
+
+My best submit score reached 85.22 and my last submit replacing it in the end (scoring better locally on more seeds than provisional) reached 84.3 (14/29 on provisonal).
+
+As many people here I used DP, but my algo was too slow to only use that in every situation (maybe because of python language perfs, or some algo (optim) knowledge missing ?) 
+
+
+
+
+Finally, I use the following global algo :
+
+while some time is left and some current spots are different from the target:
+
+find the best possible rectangle (y,x,width,height,color) and (rectangles are scored with : to realScore/nbOfRemovedErrors) and fill it with the chosen color.
+
+if no time left, fill remaining spots one by one with target color.
+
+
+
+
+
+I used the following algo for "find the best possible rectangle (y,x,width,height,color)" :
+
+- if enough time left or little W*H, find it with DP (optimal search),
+
+- if amount of time left is too short (criterion depending on W*H value, tuned locally),  
+
+- limit the search by only testing fully rectangles where 2 or 4 corners have the same color
+ 
+- or in bigger cases like seed 2, only look for lines in the end of time (don't forget to fusion 2 of them into only one rect if possible)
+
+
+
+I shared this python code here https://github.com/leojean890/competitive-programming/new/main/topcoder/mm152/submit.py
+
