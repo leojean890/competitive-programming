@@ -1,6 +1,6 @@
+Hi ! 
 
-
-Hi ! I enjoy those contests, thanks @dimkadimon for creating them ! They are fun and also a good way to improve skills !
+I enjoy those contests, thanks @dimkadimon for creating them : they are fun and also a good way to improve skills !
 
 Congratz to all top players for reaching scores close to 100.
 
@@ -35,5 +35,4 @@ I used the following algo for "find the best possible rectangle (y,x,width,heigh
 
 
 
-I shared this python code here https://github.com/leojean890/competitive-programming/new/main/topcoder/mm152/submit.py
-
+I shared my final submit (corresponding to this PM) here https://github.com/leojean890/competitive-programming/new/main/topcoder/mm152/submit.py
