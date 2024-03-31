@@ -2,6 +2,8 @@
 
 Hi ! I enjoy those contests, thanks @dimkadimon for creating them ! They are fun and also a good way to improve skills !
 
+Congratz to all top players for reaching scores close to 100.
+
 My best submit score reached 85.22 and my last submit replacing it in the end (scoring better locally on more seeds than provisional) reached 84.3 (14/29 on provisonal).
 
 As many people here I used DP, but my algo was too slow to only use that in every situation (maybe because of python language perfs, or some algo (optim) knowledge missing ?) 
