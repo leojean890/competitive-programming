@@ -101,8 +101,6 @@ if W*H > 1800:
 if W*H > 2200:
   T = 5
 
-#dotsPerColor
-# read grid
 target = [[-1 for x in range(W)] for y in range(H)]
 init = [[-1 for x in range(W)] for y in range(H)]
 for r in range(H):
