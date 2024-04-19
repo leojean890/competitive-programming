@@ -1,24 +1,19 @@
 
-# day20p2encours
-
 import sys
 
-W = 12#3#12
-NL = 144#9#144
+W = 12
+NL = 144
 L = 10
 L1 = 8
 sys.setrecursionlimit(1000000)
 
 
-def transposeRepr(initRepr, transpo):
-    if transpo == 1:
-        return [initRepr[0][::-1], initRepr[3], initRepr[2][::-1], initRepr[1]]
-
-    return [initRepr[2], initRepr[1][::-1], initRepr[0], initRepr[3][::-1]]
+def transposeRepr(initRepr):
+    return [initRepr[0][::-1], initRepr[3], initRepr[2][::-1], initRepr[1]]
 
 
 def getRepr(initRepr, transpo, rot):
-    repr = initRepr[:] if not transpo else transposeRepr(initRepr, transpo)
+    repr = initRepr[:] if not transpo else transposeRepr(initRepr)
 
     if rot == 0:
         return repr
@@ -72,37 +67,31 @@ for i in range(NL):
         nlines.append(lines[j][1:-1])
     allLines[tile] = nlines
 
-    print(tile,bords)
-
 
 chosen, chosenRepr, transpsEtRots = dfs(0, [], [], [])
-print(chosen)
-print(chosenRepr)
-print(transpsEtRots)
-#print(len(transpsEtRots))
 
 
-def transposeReprL(lines):
-    # chaque ligne est [::-1]
+def transposeLines(lines):
     nlines = []
     for line in lines:
         nlines.append(line[::-1])
     return nlines
 
 
-def getReprL(lines, transpo, rot):
+def rotateLines(lines, transpo, rot):
     if transpo:
-        lines = transposeReprL(lines)
+        lines = transposeLines(lines)
 
     if rot == 0:
         return lines
-    if rot == 1: # rot droite : simple transposition de matrice
-        return list(zip(*lines))
-    if rot == 3: # rot gauche : simple transposition de matrice + chaque ligne est [::-1]
+    if rot == 3:
+        return list(zip(*lines))[::-1]
+    if rot == 1:
         nlines = []
         for line in list(zip(*lines)):
             nlines.append(line[::-1])
         return nlines
+
     # rot 2 fois : on inverse l'ordre des lignes + chaque ligne est [::-1]
     nlines = []
     for line in lines[::-1]:
@@ -110,7 +99,6 @@ def getReprL(lines, transpo, rot):
     return nlines
 
 
-#nLines = [L1*W*"." for i in range(L1*W)]
 nLines = []
 for i in range(L1*W):
     line = []
@@ -120,11 +108,10 @@ for i in range(L1*W):
 
 counterD = 0
 for i in range(NL):
-    #print(i)
     tile = chosen[i]
     lines = allLines[tile]
     transpo, rot = transpsEtRots[i]
-    nlines = getReprL(lines, transpo, rot)
+    nlines = rotateLines(lines, transpo, rot)
 
     c = i%W
     r = i//W
@@ -136,16 +123,15 @@ for i in range(NL):
                 counterD += 1
 
 
-# reconstituer l'img selon ce que j'ai utilisé, repérer les monstres, et compter les autres #
 dieses = ((0,18),(1,0),(1,5),(1,6),(1,11),(1,12),(1,17),(1,18),(1,19),(2,1),(2,4),(2,7),(2,10),(2,13),(2,16))
 
 for transpo in range(2):
     for rot in range(4):
-        #print(rot)
         nLs = []
         for i in range(L1 * W):
             nLs.append(nLines[i].copy())
-        nLs = getReprL(nLs, transpo, rot) # on pourrait transposer le motif du sea monster au lieu de l'image mais whatever...
+        nLs = rotateLines(nLs, transpo, rot)
+        # on pourrait transposer le motif du sea monster au lieu de l'image mais whatever...
 
         nbSeaMonsters = 0
         for i in range(L1 * W - 3):
@@ -158,19 +144,11 @@ for transpo in range(2):
                             if (y,x) in dieses:
                                 v = True
                                 break
-                        elif (y,x) not in dieses:
-                            v = True
-                            break
                     if v:break
                 else:
                     nbSeaMonsters += 1
-        """
-                  # 
-#    ##    ##    ###
- #  #  #  #  #  #   
-        """
+
 
         if nbSeaMonsters:
-            print(counterD - 15*nbSeaMonsters)
+            print(counterD - 15*nbSeaMonsters) #1858
             exit()
-
