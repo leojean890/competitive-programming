@@ -12,8 +12,6 @@ start_time = process_time()
 durationPerNumDoss = {}
 for i in range(N):
     numDossard, duree = input().split(",")
-    print (float(duree))
-    print (int(100*float(duree)))
     durationPerNumDoss[int(numDossard)] = float(duree)
 
 nbOfTeams = N//teamSize
