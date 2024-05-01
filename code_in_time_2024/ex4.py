@@ -6,7 +6,6 @@ from time import process_time
 
 N = 8192
 teamSize = 4
-bestScore = sys.maxsize
 start_time = process_time()
 
 durationPerNumDoss = {}
