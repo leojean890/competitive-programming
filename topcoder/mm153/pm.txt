@@ -12,6 +12,6 @@ and also depending on
 - avoid sending 2 collectors to the same mushroom (but sometimes I do that anyway..)
 - favor collecting mushrooms with more value, because there are more to lose, particularly if RD is low.
 
-BFS distances between interesting targets (starting points, huts, and mushrooms) are precomputed before the search.
+BFS distances and related paths between interesting targets (starting points, huts, and mushrooms) are precomputed before the search.
 
-Here is my final submit : 
+Here is my final submit : https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm153/submit.py
