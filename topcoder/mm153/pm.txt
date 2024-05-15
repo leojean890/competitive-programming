@@ -4,6 +4,8 @@ I reached 92.15 pts using the following approach :
 
 I'm using some randomized parameters and do many sims while some time is left.
 
+Using another lapse of time, I only do mutations on "best parameters on average" found locally.
+
 The scoring function to choose a target is a combination of :
 
 - distance to each mushroom/hut
