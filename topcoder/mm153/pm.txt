@@ -9,8 +9,7 @@ Using another lapse of time, I only do mutations on "best parameters on average"
 The scoring function to choose a target is a combination of :
 
 - distance to each mushroom/hut
-- a threshold enabling to favor on average the fact to go to a hut or a mushroom according to the amount of currently carried mushrooms 
-and also depending on 
+- - a threshold enabling to favor on average the fact to go to a hut or a mushroom according to the amount of currently carried mushrooms and also depending on RD and CD values.
 - avoid sending 2 collectors to the same mushroom (but sometimes I do that anyway..)
 - favor collecting mushrooms with more value, because there are more to lose, particularly if RD is low.
 
