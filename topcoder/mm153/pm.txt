@@ -1,0 +1,17 @@
+Hello ! This contest was very interesting. Congratz for the contest creation and to top players for reaching such scores.
+
+I reached 92.15 pts using the following approach :
+
+I'm using some randomized parameters and do many sims while some time is left.
+
+The scoring function to choose a target is a combination of :
+
+- distance to each mushroom/hut
+- a threshold enabling to favor on average the fact to go to a hut or a mushroom according to the amount of currently carried mushrooms 
+and also depending on 
+- avoid sending 2 collectors to the same mushroom (but sometimes I do that anyway..)
+- favor collecting mushrooms with more value, because there are more to lose, particularly if RD is low.
+
+BFS distances between interesting targets (starting points, huts, and mushrooms) are precomputed before the search.
+
+Here is my final submit : 
