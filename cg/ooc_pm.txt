@@ -1,3 +1,5 @@
+https://www.codingame.com/forum/t/ocean-of-code-feedback-strategies/175885/54
+
 72/2279 (overall), 8/435 (gold), 6/685 (python)
 
 I implemented tracking propagating constraints, based on opponent orders : moves, silences (duplication of paths, impossibility to come back to already visited spots and to go out of the map), torpedo and trigger locations (BFS distances), and cohesion between theorical and real remaining opponent life (about TRIGGER and TORPEDO actions) for each possible position.
