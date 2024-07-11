@@ -1,0 +1,14 @@
+approche : algo "random MC leadé avec heuristiques greedy" 
+
+- ordre prédéfini de monstres à tuer 
+
+- axe d'amélioration : je fonçais dessus en mode bourrin au lieu de peaufiner où j'attéris parmi les places possibles qui sont à portée
+et au lieu du SA j'avais des probas (tirage random) avec coefficients
+
+numTour*monster["gold"]
+(nbTours-numTour)*monster["exp"]
+pour aller chercher au début des monstres qui filent de l'exp et à la fin du gold
+
+dist(maPos,monsterPos) pour aller taper un proche en premier
+monster["attack"] pour éviter de prendre trop de fatigue
+monster["hp"] pour d'abord tuer ceux qui ont peu de vie
