@@ -1,0 +1,28 @@
+Hello !
+
+leojean890, 210/5237 (global), 15/1944 (python), 148/980 (gold)
+
+Congratz to CG for having this interesting contest idea and organizing it, and congratz to all players !
+
+My overall approach is a bruteforce (depth 5) applied each turn for each player.
+
+First, I apply it on both opponents moves. I score each reached state at depth 5.
+
+eval : I consider that each opponent will play :
+
+a move combination favoring several mini-games at once
+mini-games with the least medals (3*g+s)
+mini-games where their opponents have the least medals (to deny them)
+mini-games for which the issue is NOT certain (if the gap between 2 players is huge in a mini-game, we may sometimes consider that the issue is fully or almost determined) => I use some ponderation about this criterion too
+I use lower coeff for skating and normalized coeffs for other mini-games
+I store/return each opponent’s state maximizing this eval at depth 5 to use it in the second part.
+
+Second, I apply this bruteforce on my own moves. I score each reached state at depth 5.
+
+I use almost the same eval than described upper but mostly considering if I’m beating the opponents “best reached state at depth 5” and at which point in each mini-game.
+
+There is another criterion in the eval of my moves with bigger coeff : I add virtual medals (who is currently winning in each mini-game, or won it ?)
+and I calculate the real score (multiplication) of each player considering the “new” amount of medals per mini-game per player.
+This criterion is strongly ponderated in the eval of my moves.
+
+I play the move maximizing this global eval.
