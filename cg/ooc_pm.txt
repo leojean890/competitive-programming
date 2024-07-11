@@ -1,0 +1,34 @@
+72/2279 (overall), 8/435 (gold), 6/685 (python)
+
+I implemented tracking propagating constraints, based on opponent orders : moves, silences (duplication of paths, impossibility to come back to already visited spots and to go out of the map), torpedo and trigger locations (BFS distances), and cohesion between theorical and real remaining opponent life (about TRIGGER and TORPEDO actions) for each possible position.
+
+I kept possible enemy positions and paths, and associated mines positions turn after turn, and reset paths on “new paths containing only each possible position” when the global number of paths was too high if the opponent used too much silences.
+
+My move actions were chosen using a ponderation of
+
+myNumberOfPossibleSpots (to be untrackable)
+numberOfFutureAccessibleSpots (to avoid useless SURFACE), calculated with BFS algorithm.
+opponent mine probability (only if he is almost detected and if I am also, else he wouldn’t trigger).
+bonus if my torpedo cooldown is lower than his and I’m close to the opponent
+malus if opponent_torpedo_cooldown < my_torpedo_cooldown and I’m close to him
+I used silences only when the enemy is close (minDist short), when I’m almost detected, or for killerMoves, or to escape the opponent when opponent_torpedo_cooldown < my_torpedo_cooldown
+Its length depends on the needs (distance from the opponent).
+
+I use surface only for killerMoves when I need to go through my own current path.
+
+I use torpedos only if the enemy is almost detected, on the most central position among several accessible positions.
+Idem for triggers, but according to a less restrictive threshold (it may be used a little as a sonar).
+
+I used sonar only if it is useful to shoot him a short time later and if there are more than 1 possible sector for the enemy (and if he may be close).
+
+I put mines not too close to each other, and to map limits. I use a decreasing factor to put more mines at the beginning than at the ending, because the opponent will have more time to go near them if I put them early.
+
+My priority is to load TORPEDO and then MINE or SILENCE depending on the turn number and when everything else is loaded, SONAR.
+
+I tried to do killerMoves when I can and “move, then shoot and escape with silence” actions when I also can.
+
+I assumed that the enemy would load torpedo and then silence when he can to calculate his minCooldowns.
+
+Congrats to @pb4, @jolindien, @valgrowth
+
+Thanks to @Illedan, @eulerscheZahl and @G-ROM for this amazing contest !
