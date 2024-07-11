@@ -38,9 +38,7 @@ bestScore = 0.0
 bestActions = {}
 while process_time() - start_time < 240:
 
-    allMonsters = {} #list(range(nbMonsters))
-    #print(nbMonsters )
-    #print(nbMonsters,range(nbMonsters) )
+    allMonsters = {}
     for i in range(nbMonsters):
         allMonsters[i] = loaded["monsters"][i]["hp"]
     y,x,nTurns,level,xp = loaded["start_y"],loaded["start_x"],loaded["num_turns"],0,0
@@ -49,10 +47,8 @@ while process_time() - start_time < 240:
     score = 0.0
     init_nTurns = nTurns
     fatigue = 0
-    #currLevelXp = 1000,1100,1300,1600,2000
     currLevelXp = 1000+50*level*(level+1)
 
-    #d = {a:b for a,b in sorted(monstersIndexes, key=lambda i: loaded["monsters"][i]["gold"]*loaded["monsters"][i]["exp"]/(loaded["monsters"][i]["hp"]*(1+math.dist((loaded["monsters"][i]["y"],loaded["monsters"][i]["x"]),(y,x)))))}
     d = sorted(monstersIndexes,
                key=lambda i: (init_nTurns - nTurns) * loaded["monsters"][i]["gold"] + nTurns * loaded["monsters"][i][
                    "exp"] - 1000 * init_nTurns * loaded["monsters"][i]["attack"] - init_nTurns * 50 * loaded["monsters"][i][
@@ -65,14 +61,7 @@ while process_time() - start_time < 240:
         for i in range(len(kys) - 7):
             probs.append(0.00005)
             ss += 0.00005
-        # for i in range(len(kys)):
-        #    probs[i] /= ss
-        """probs.append(0.001)
-                                    ss += 0.001
-                                    probs.append(0.005)
-                                    ss += 0.005
-                                    probs.append(0.01)
-                                    ss += 0.01"""
+
         probs.append(0.05)
         ss += 0.05
         probs.append(0.07)
@@ -133,9 +122,7 @@ while process_time() - start_time < 240:
 
     while nTurns > 0:
 
-        #speed = loaded["hero"]["base_speed"] * (1 + (level // 2) * loaded["hero"]["level_speed_coeff"] / 100)
         power = math.floor(loaded["hero"]["base_power"] * (1 + level * loaded["hero"]["level_power_coeff"] / 100))
-        #h_range = loaded["hero"]["base_range"] * (1 + (level // 2) * loaded["hero"]["level_range_coeff"] / 100)
         speed = math.floor(loaded["hero"]["base_speed"] * (1 + level * loaded["hero"]["level_speed_coeff"] / 100))
         h_range = math.floor(loaded["hero"]["base_range"] * (1 + level * loaded["hero"]["level_range_coeff"] / 100))
 
@@ -150,14 +137,8 @@ while process_time() - start_time < 240:
             if distance <= h_range:
                 while hp > 0 and nTurns > 0:
                     nTurns -= 1
-                    #actions.append({"type": "attack", "target_id": str(monster)})
                     actions.append({"type": "attack", "target_id": monster})
                     features.append((level, speed, power, h_range, xp, currLevelXp))
-
-                    hp -= power
-                    #hp = max(0, hp-power)
-                    #if hp > 0:
-                    #    allMonsters[monster] = hp
 
                     if hp > 0:
                         for msr in allMonsters:
@@ -168,7 +149,6 @@ while process_time() - start_time < 240:
 
                             if distance <= loaded["monsters"][msr]["range"]:
                                 fatigue += loaded["monsters"][msr]["attack"]
-                #print("hp",hp)
 
                 if hp <= 0:
                     score += int(loaded["monsters"][monster]["gold"]*1000/(1000+fatigue))
@@ -184,8 +164,6 @@ while process_time() - start_time < 240:
                         if distance <= loaded["monsters"][msr]["range"]:
                             fatigue += loaded["monsters"][msr]["attack"]
 
-                    #print("score",score)
-                    #print("xp",xp)
                     if monster == currentMonster:
                             d = sorted(allMonsters, key=lambda i: (init_nTurns-nTurns)*loaded["monsters"][i]["gold"] + nTurns*loaded["monsters"][i]["exp"] - 1000*init_nTurns*loaded["monsters"][i]["attack"] - 50*init_nTurns*loaded["monsters"][i]["hp"] - (1+init_nTurns*100*math.dist((loaded["monsters"][i]["y"],loaded["monsters"][i]["x"]),(y,x))))
                             kys = list(d)
@@ -195,14 +173,6 @@ while process_time() - start_time < 240:
                                 for i in range(len(kys) - 7):
                                     probs.append(0.00005)
                                     ss += 0.00005
-                                # for i in range(len(kys)):
-                                #    probs[i] /= ss
-                                """probs.append(0.001)
-                                                            ss += 0.001
-                                                            probs.append(0.005)
-                                                            ss += 0.005
-                                                            probs.append(0.01)
-                                                            ss += 0.01"""
                                 probs.append(0.05)
                                 ss += 0.05
                                 probs.append(0.07)
@@ -265,10 +235,8 @@ while process_time() - start_time < 240:
                         xp -= currLevelXp
                         level += 1
                         currLevelXp = 1000 + 50 * level * (level + 1)
-                        # speed = loaded["hero"]["base_speed"] * (1 + (level // 2) * loaded["hero"]["level_speed_coeff"] / 100)
                         power = math.floor(
                             loaded["hero"]["base_power"] * (1 + level * loaded["hero"]["level_power_coeff"] / 100))
-                        # h_range = loaded["hero"]["base_range"] * (1 + (level // 2) * loaded["hero"]["level_range_coeff"] / 100)
                         speed = math.floor(
                             loaded["hero"]["base_speed"] * (1 + level * loaded["hero"]["level_speed_coeff"] / 100))
                         h_range = math.floor(
@@ -297,14 +265,12 @@ while process_time() - start_time < 240:
                     currentIndex += 1
                     dd = min(speed,100)
                     distance = (integers[currentIndex] % (speed//dd) + 1) * dd
-                    #print(integers[currentIndex], speed, integers[currentIndex] % (speed//100))
                     currentIndex += 1
                     a = integers[currentIndex] * math.pi / 180  # entre 0 et 350
                     # dy = angle*dx
                     # dxdx + dydy = dist*dist
                     # dxdx +a*a*dx*dx = dist*dist
                     sqrt = math.sqrt(distance * distance / (1 + a * a))
-                    #print(distance, a, sqrt) # integers[currentIndex] % (speed//100)
                     dx = int(sqrt)
                     dy = int(a * dx)
                     if x+dx > width:
@@ -320,7 +286,6 @@ while process_time() - start_time < 240:
                     break
 
             actions.append({"type": "move", "target_x": x, "target_y": y})
-            #features.append((level, speed, power, h_range))
 
             for msr in allMonsters:
                 yz1 = loaded["monsters"][msr]["y"]
@@ -331,12 +296,6 @@ while process_time() - start_time < 240:
                 if distance <= loaded["monsters"][msr]["range"]:
                     fatigue += loaded["monsters"][msr]["attack"]
 
-
-    #print(score)
-    """if score > 900000:
-        print(bestActions, file=sys.stdout, flush=True)
-        print(bestFeatures, file=sys.stdout, flush=True)
-        print(bestScore, file=sys.stdout, flush=True)"""
     if score > bestScore:
         bestScore = score
         bestActions = {"moves": actions}
@@ -348,16 +307,4 @@ while process_time() - start_time < 240:
 
 
 
-
-"""
-
-#out1 = dumps(loaded, separators=(',', ':'))
-#print(out1)
-#dump(loaded, out, separators=(',', ':'))
-#print(out)
-
-#dump(loaded, out, separators=(',', ':'))
-#print(out)
-print(dumps("{a:\"a\"}", separators=(',', ':')))
-"""
 
