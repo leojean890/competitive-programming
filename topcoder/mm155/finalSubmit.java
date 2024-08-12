@@ -2,7 +2,7 @@ import java.security.SecureRandom;
 import java.io.*;
 import java.util.*;
 
-public class ArrowsV90 {
+public class Arrows {
     private static final double t_start = 90;
     private static final double t_final = 99;
     private static SecureRandom rnd;
