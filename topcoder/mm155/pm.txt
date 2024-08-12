@@ -4,7 +4,13 @@ I reached 77 pts using the following aproach :
 
 First, I generate pseudo random moves in reverse order during 1 second 
 
-If I find a square with a 5 multiplier, I take it. Else if I find a square with 3 multiplier I take it. And so on
+First, I use random-greedy approach:
+I construct a solution the folloing way :
+If I find at least a square with a 5 multiplier, I choose randomly one of those. 
+Else if I find a square with 3 multiplier, I choose randomly one of those. 
+And so on
+
+Second, I use random-probabilistic approach:
 
 I use a bigger proba to take spots with big multipliers (5-3-2-1) or (20-12-8-1)
 
