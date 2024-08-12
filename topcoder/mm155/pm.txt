@@ -16,13 +16,13 @@ In the second step, I use a random-probabilistic approach in reverse order durin
 I use a bigger probability to take spots with big multipliers in the beginning.
 Used probas may be 5-3-2-1 or 20-12-8-1.
 
-In the third step, I use SA to optimize the best solution found during the first two steps, using the same probabilities.
+In the third step, I use SA to optimize the best solution found during the first two steps, using the same probabilities described upper to choose the next node.
 
-In the fourth and last step, I do some post-procssing from my best found solution.
+In the fourth and last step, I do some post-procssing in order to improve my best found solution.
 
-I do the following steps several times and take the best found result this way :
-For each pair of dots A-B from my list, I check if I can find C such as A-C-B is valid (concerning arrows). If so I take it.
-Then I check A-C to see if I can insert some other move.
+I do the following steps several times and take as final solution to be outputted the best found result this way :
+For each pair of dots A-B from my list, I check if I can find C such as A-C-B is valid (concerning arrows). If so I take one of them randomly.
+Then I check A-C to see if I can insert some other move in between them.
 And so on, until the end of the solution, to optimize it maximally.
 
 But I may have done better if I used beam search or so :)
