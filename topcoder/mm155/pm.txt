@@ -1,4 +1,4 @@
-Hello ! Thanks @dimkadimon to create these amazing topics, and congratz to top players to have reached those scores
+Hello ! Thanks @dimkadimon to create these amazing optim contests, and congratz to top players for reaching such huge perfs.
 
 I reached 77 pts using the following aproach :
 
@@ -27,3 +27,6 @@ And so on, until the end of the solution, to optimize it maximally.
 
 But it could have been better if I used beam search or so :)
 I thought it was too hard considering the branching :D
+
+I shared my final code here :
+https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm155/finalSubmit.java
