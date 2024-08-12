@@ -13,7 +13,6 @@ And so on
 When I choose the next node, I only take nodes if they have at least a possible son (targettable square) to avoid being blocked the next turn.
 
 In the second step, I use a random-probabilistic approach in reverse order during another second:
-
 I use a bigger probability to take spots with big multipliers in the beginning.
 Used probas may be 5-3-2-1 or 20-12-8-1.
 
@@ -22,9 +21,7 @@ In the third step, I use SA to optimize the best solution found during the first
 In the fourth and last step, I do some post-procssing from my best found solution : 
 
 For each pair of dots A-B from my list, I check if I can find C such as A-C-B is valid (concerning arrows). If so I take it.
-
 Then I check A-C to see if I can insert some other move.
-
 And so on, until the end of the solution, to optimize it maximally.
 
 But I may have done better if I used beam search or so :)
