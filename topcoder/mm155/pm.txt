@@ -1,0 +1,18 @@
+Hello ! Thanks @dimkadimon to create these amazing topics, and congratz to top players to have reached those scores
+
+I reached 77 pts using the following aproach :
+
+First, I generate pseudo random moves in reverse order during 1 second 
+
+If I find a square with a 5 multiplier, I take it. Else if I find a square with 3 multiplier I take it. And so on
+
+I use a bigger proba to take spots with big multipliers (5-3-2-1) or (20-12-8-1)
+
+I choose the next node only if it has at least a possible son (targettable square).
+
+Then, I use SA to optimize it using the same probabilities.
+
+Then I do some post-procssing from my best found list : 
+
+For each pair of dots A-B from my best moves final list, I check if I can find C such as A-C-B is valid.
+
