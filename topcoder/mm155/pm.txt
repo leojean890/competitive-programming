@@ -2,26 +2,28 @@ Hello ! Thanks @dimkadimon to create these amazing topics, and congratz to top p
 
 I reached 77 pts using the following aproach :
 
-In the first step, I generate pseudo random moves in reverse order during 1 second 
+In the first step, I use random-greedy approach: I generate pseudo random moves in reverse order during 1 second :
 
-First, I use random-greedy approach:
 I construct a solution the folloing way :
 If I find at least a square with a 5 multiplier, I choose randomly one of those. 
-Else if I find a square with 3 multiplier, I choose randomly one of those. 
+Else if I find at least a square with 3 multiplier, I choose randomly one of those. 
 And so on
 
-I choose the next node only if it has at least a possible son (targettable square).
+When I choose the next node, I only take nodes if they have at least a possible son (targettable square).
 
-Second, I use random-probabilistic approach during another second:
+In the seoond step, I use random-probabilistic approach during another second:
 
 I use a bigger proba to take spots with big multipliers (5-3-2-1) or (20-12-8-1)
 
-Then, I use SA to optimize it using the same probabilities.
+In the third step, I use SA to optimize the best found solution found during the first to steps, using the same probabilities.
 
-Then I do some post-procssing from my best found list : 
+In the fourth and last step, I do some post-procssing from my best found list : 
 
 For each pair of dots A-B from my best moves final list, I check if I can find C such as A-C-B is valid. If so I take it.
 
 Then I check A-C to see if I can insert some other move.
 
-Etc 
+And so on, until the end of the solution, to optimize it maximally.
+
+But it could have been better if I used beam search or so :)
+I thought it was too hard considering the branching :D
