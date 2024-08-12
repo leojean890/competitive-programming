@@ -1,6 +1,6 @@
 Hello ! Thanks @dimkadimon to create these amazing optim contests, and congratz to top players to have reached such huge perfs.
 
-I reached 77 pts using the following overall aproach :
+I reached 77 pts (rank 24/64 in provisional) using the following overall aproach :
 
 In the first step, I use a random-greedy approach. 
 
