@@ -4,30 +4,31 @@ I reached 77 pts using the following overall aproach :
 
 In the first step, I use a random-greedy approach. 
 
-I construct a solution the folloing way :
-I generate pseudo random moves in reverse order during 1 second such as :
+I construct some solutions during 1 second the folloing way :
+I generate pseudo random moves in reverse order such as :
 If I find at least a square with a 5 multiplier, I choose randomly one of those. 
 Else if I find at least a square with 3 multiplier, I choose randomly one of those. 
 And so on
 
-When I choose the next node, I only take nodes if they have at least a possible son (targettable square).
+When I choose the next node, I only take nodes if they have at least a possible son (targettable square) to avoid being blocked the next turn.
 
-In the seoond step, I use random-probabilistic approach during another second:
+In the second step, I use a random-probabilistic approach in reverse order during another second:
 
-I use a bigger proba to take spots with big multipliers (5-3-2-1) or (20-12-8-1)
+I use a bigger probability to take spots with big multipliers in the beginning.
+Used probas may be 5-3-2-1 or 20-12-8-1.
 
-In the third step, I use SA to optimize the best found solution found during the first to steps, using the same probabilities.
+In the third step, I use SA to optimize the best solution found during the first two steps, using the same probabilities.
 
-In the fourth and last step, I do some post-procssing from my best found list : 
+In the fourth and last step, I do some post-procssing from my best found solution : 
 
-For each pair of dots A-B from my best moves final list, I check if I can find C such as A-C-B is valid. If so I take it.
+For each pair of dots A-B from my list, I check if I can find C such as A-C-B is valid (concerning arrows). If so I take it.
 
 Then I check A-C to see if I can insert some other move.
 
 And so on, until the end of the solution, to optimize it maximally.
 
-But it could have been better if I used beam search or so :)
-I thought it was too hard considering the branching :D
+But I may have done better if I used beam search or so :)
+I thought that it was too hard to use such approach considering the branching, but some top players proved me wrong !
 
 I shared my final code here :
 https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm155/finalSubmit.java
