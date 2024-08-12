@@ -1,10 +1,11 @@
-Hello ! Thanks @dimkadimon to create these amazing optim contests, and congratz to top players for reaching such huge perfs.
+Hello ! Thanks @dimkadimon to create these amazing optim contests, and congratz to top players to have reached such huge perfs.
 
-I reached 77 pts using the following aproach :
+I reached 77 pts using the following overall aproach :
 
-In the first step, I use random-greedy approach: I generate pseudo random moves in reverse order during 1 second :
+In the first step, I use a random-greedy approach. 
 
 I construct a solution the folloing way :
+I generate pseudo random moves in reverse order during 1 second such as :
 If I find at least a square with a 5 multiplier, I choose randomly one of those. 
 Else if I find at least a square with 3 multiplier, I choose randomly one of those. 
 And so on
