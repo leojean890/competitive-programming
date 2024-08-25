@@ -1,0 +1,5 @@
+- I just have random rollouts (scored)
+
+- then, improved trying to be close (heuristically) each step to sumL/c or sumL*L[i]/(T*c)
+- in order to "force" chocolates to be sold "uniformly"
+- but that's not enough to be close to the top, maybe I should have HC/SA the first random rollouts
