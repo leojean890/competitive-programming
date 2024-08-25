@@ -5,8 +5,6 @@ public class main
 {
     public static void main(String args[])
     {
-
-
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         long startTime = System.nanoTime();
@@ -103,33 +101,27 @@ public class main
                     } else {
                         factor = 1;
                     }
-                    //int factor = random.nextInt((int)(sumL/c)+1)+1;
 
-                    //int factor = (int)(sumL*L[i]/(T*c));// sumL*L[i]/(T*(c-1));
                     factor *= FCTR1[i];
 
                     if (cur > factor+1) {
-                        chosen = random.nextInt(3);//excluded
+                        chosen = random.nextInt(3);
                         chosen += factor;
                     }
                     else if (cur == factor) {
                         chosen = factor;
                     }
                     else if (cur == factor+1) {
-                        chosen = random.nextInt(2);//excluded
+                        chosen = random.nextInt(2);
                         chosen += factor;
                     }
                     else if (cur > FCTR2[i]+1) {
-                        chosen = random.nextInt(3);//excluded
+                        chosen = random.nextInt(3);
                         chosen += FCTR2[i];
                     } else if (cur > 0){
                         chosen = random.nextInt(cur);
                     }
-                    // random sur l'intervalle entre 1 et sumL/T => DONE
-                    // choix random entre L[i]/T et factor => TODO
-                    // attention aux arrondis car on consid�re des entiers
- 
-                    // TODO HC SA
+
                     curr_c -= chosen;
                     curr_L[i] -= chosen;
                     curr_Q[i][t] = chosen;
@@ -213,8 +205,3 @@ public class main
 
     }
 }
-
-
-
-
-
