@@ -1,4 +1,24 @@
-à mieux réécrire :
+I didn't find better for the globalPath than using BFS
+I tried to also generate the path using the least possible spots but it worked less (advantage : less different spots in A, I can variabilize it more ; drawback : longer path so more often I have to reactivate red lights :s)
+
+I try to generate a A with some compromize (magic numbers) between 3 criterions :
+including the subpaths the most often present in the globalPath
+choose long subpaths (to be able to turn all of them green in one action) but not too long (because this subpath would take too much space in A)
+choose subpaths including dots that are rarely already included in A (I should have tuned that more) => to increase diversity of A
+all dots in globalPath have to be present in A
+
+then process moves greedily
+if next step in globalPath is green just move
+else if another alternative is green, just change the global path (depth 2)
+else do the mutation : add a new part of A to B (mutate B)
+take the mutation which will maximize the amount of next successive moves in first-steply computed globalPath that will be green 
+I can't compute and score all available moves (mutations) because of timeouts but I try a lot of stuff 😦 
+
+anyway I should have converted this in another language because I had to crop those approx heuristics because they take too much time to do them with a better space search => take the best combination of "add a new part of A to B (mutate B)" while processing moves 😦 
+I lacked time for atcoder during 4 succesive days, but the rest of the time was ok
+or find a better approach but I couldn't find it :p
+
+FR à mieux réécrire :
 
 j'ai généré un path global (for now BFS mais je peux changer pour trouver un path avec le moins possible de nodes pour réduire le nb de feux à gérer)
 
