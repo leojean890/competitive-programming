@@ -1,0 +1,22 @@
+à mieux réécrire :
+
+j'ai généré un path global (for now BFS mais je peux changer pour trouver un path avec le moins possible de nodes pour réduire le nb de feux à gérer)
+
+ et ensuite je génère le A 
+en fonction des subpaths qui sont souvent présents dans le path global (je les mets tels quels dans le A) => optimisation de la répartition
+en essayant aussi d'uniformiser à peu près le nombre d'occurrences de chaque node visité dans le path global dans le A
+ne pas ajouter dans le A les nodes qui ne sont pas prévus dans le chemin global
+
+ensuite lors du parcours j'active les feux en fonction de l'optimisation du nombre de noeuds successifs du chemin global qui arrivent
+
+en fait le pbm de ces idées c'est les timeouts donc je dois les limiter à fond c'est chiant (avec des critères sur des seuils ou sur le temps)
+
+Mais ensuite quand (dans un cas de blocage) tu prends le tronçon le plus efficace pour optimiser ton B pour les prochains moves, je peux pas tester toutes les combinaisons, c'est bcp trop lent 
+Je ne simule qu'une partie des possibilités
+Y a matière à y gagner ici
+Soit remplacer tout le B par un tronçon choisi de A
+Soit remplacer juste un bout du B par un nouveau tronçon pertinent du A
+Dans le but de récupérer le A qui te donne le plus de moves successifs faisables sans devoir faire de mutation pendant cette série de moves 
+
+Ensuite petit improve en modifiant légèrement le path global si la next case est rouge mais un chemin est vert et peut déboucher sur la  même case suivante.
+
