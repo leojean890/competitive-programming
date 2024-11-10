@@ -1,5 +1,6 @@
 - the spreading of new containers between currently existing VMs and creating new ones was a hard part
 - I also tried to minimize the gap between currently available space and new taken space by VMs, for example if one of my VMs has 25 CPU left and 30 MEM left and my new container takes 24.9 and 29.9 it's a good match 😄
+I sorted all among the currently available containers before chosing which one I was gonna place and where
 + using stats described upper to create new VMs to have a nice prorata mem/cpu available VS low price
 - the preheating was a hard part too, I did that on turn==0 with some magic numbers (i.e how many VMs wil I create initially to anticipate the delay d and lose less score about that ?)
 
