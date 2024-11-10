@@ -1,0 +1,28 @@
+- the spreading of new containers between currently existing VMs and creating new ones was a hard part
+- I also tried to minimize the gap between currently available space and new taken space by VMs, for example if one of my VMs has 25 CPU left and 30 MEM left and my new container takes 24.9 and 29.9 it's a good match 😄
++ using stats described upper to create new VMs to have a nice prorata mem/cpu available VS low price
+- the preheating was a hard part too, I did that on turn==0 with some magic numbers (i.e how many VMs wil I create initially to anticipate the delay d and lose less score about that ?)
+
+- the normalized-stats made me get the 34M or so
+but not enough to pass 34  349  411 
+
+- I'm just using stats with some normalization between fields mem/cpu/price (the first element of stats is the better), it worked better than too many magic numbers !
+
+factorCpu = 1
+factorPrice = 1
+for _ in range(m):
+    cpu, mem, price = map(int, input().split())
+    vm_types.append(VMType(cpu, mem, price))
+    factorCpu *= mem
+    factorPrice *= mem
+    factorCpu /= cpu
+    factorPrice /= price
+factorCpu /= m
+factorPrice /= m
+
+
+stats = {}
+for i in range(m):
+    stats[i] = (factorCpu * vm_types[i].cpu + vm_types[i].mem) / (factorPrice*vm_types[i].price)
+
+stats = list({a: b for a, b in sorted(stats.items(), key=lambda x: x[1], reverse=True)}.keys())
