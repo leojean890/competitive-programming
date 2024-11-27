@@ -28,7 +28,6 @@ Here is the optimized java code :
 
 https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm157/betterVersionAfterContest.java
 
-Here is the slow java code used during the contest (I also tried a baem search for little N values) :
+Here is the slow java code used during the contest (I also tried a beam search for little N values, but the earned gain using it was very little and the big method was slowing the code, I ignore why) :
 
 https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm157/finalSubmit.java
-
