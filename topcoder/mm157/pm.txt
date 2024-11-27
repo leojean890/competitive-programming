@@ -1,0 +1,29 @@
+
+
+
+My approach is spreaded in 3 parts :
+
+- A greedy part (lasting for 2s) in order to initialize a state that allows only to move balls which are not already located on a target and prefers moving balls that will directly reach their related target if possible.
+- In a second part (lasting for 7s), a simulated annealing algo which will allow any move and maximize the score reached in the end.
+- In a third part (lasting for 0.7s), a greedy that will just play obvious moves that will place remaining balls (located in void target cells) in their target (or any target) if that's possible to do so in only one move.
+
+One among those available mutations is picked randomly each rollout (for any ball and direction) :
+- add a move "move a ball in a direction"
+- delete a move 
+- replace a move by another
+
+This SA idea was suggested after the contest by @gaha
+
+With my post-contest program I had the following local leaderboard (because of some advices on SA and performance given by @gaha @sullyper @eulerscheZahl) :
+newProgram : 94
+contestProgram : 61
+starter : 26
+
+In the end of the contest I had the following local leaderboard :
+contestProgram : 96
+starter : 39
+
+The SA mutations were slower : cut in the middle of the moves sequence and regenerate the end from it.
+And coding style was also slower.
+
+Here is the optimized java code :
