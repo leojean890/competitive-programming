@@ -1,6 +1,4 @@
 
-
-
 My approach is spreaded in 3 parts :
 
 - A greedy part (lasting for 2s) in order to initialize a state that allows only to move balls which are not already located on a target and prefers moving balls that will directly reach their related target if possible.
@@ -27,3 +25,10 @@ The SA mutations were slower : cut in the middle of the moves sequence and regen
 And coding style was also slower.
 
 Here is the optimized java code :
+
+https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm157/betterVersionAfterContest.java
+
+Here is the slow java code used during the contest (I also tried a baem search for little N values) :
+
+https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm157/finalSubmit.java
+
