@@ -14,25 +14,25 @@ def transform(dy, dx):
     return {(-1,0):(0,1),(0,1):(1,0),(1,0):(0,-1),(0,-1):(-1,0)}[(dy,dx)]
 
 
-(y,x,dy,dx) =(iy,ix,idy,idx)
-visited = {(y,x)}
+(y,x,dy,dx) = (iy,ix,idy,idx)
+visited = {}
 
 while 0 <= x < N and 0 <= y < N:
     while (y+dy,x+dx) in walls:
         (dy,dx) = transform(dy,dx)
+    visited[(y+dy,x+dx)] = (y,x,dy,dx)
     y += dy
     x += dx
-    visited.add((y,x))
 
 
 counter = 0
 for a in range(N):
     for b in range(N):
         print(a,b)
-        if (a,b) not in walls and (a,b) in visited:
+        if (a,b) not in walls and (a,b) in visited and (a,b) != (iy,ix):
             nwalls = walls | {(a,b)}
             path = []
-            (y,x,dy,dx) =(iy,ix,idy,idx)
+            (y,x,dy,dx) = visited[(a,b)]
 
             while 0 <= x < N and 0 <= y < N:
                 while (y+dy,x+dx) in nwalls:
