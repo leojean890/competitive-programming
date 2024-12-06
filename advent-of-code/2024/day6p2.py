@@ -20,7 +20,8 @@ visited = {}
 while 0 <= x < N and 0 <= y < N:
     while (y+dy,x+dx) in walls:
         (dy,dx) = transform(dy,dx)
-    visited[(y+dy,x+dx)] = (y,x,dy,dx)
+    if (y+dy,x+dx) not in visited:
+        visited[(y+dy,x+dx)] = (y,x,dy,dx)
     y += dy
     x += dx
 
@@ -31,8 +32,8 @@ for a in range(N):
         print(a,b)
         if (a,b) not in walls and (a,b) in visited and (a,b) != (iy,ix):
             nwalls = walls | {(a,b)}
-            path = []
             (y,x,dy,dx) = visited[(a,b)]
+            path = [(y,x,dy,dx)]
 
             while 0 <= x < N and 0 <= y < N:
                 while (y+dy,x+dx) in nwalls:
@@ -46,4 +47,4 @@ for a in range(N):
 
                 path.append((y,x,dy,dx))
 
-print(counter)
+print(counter) # 2008
