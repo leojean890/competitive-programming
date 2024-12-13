@@ -1,4 +1,3 @@
-import sys
 from collections import defaultdict
 from time import process_time
 
@@ -24,12 +23,9 @@ def solve_system(x1, x2, y1, y2, z1, z2):
 
     return 3*a+b
 
-
-sys.setrecursionlimit(100000000)
 start_time = process_time()
 elts = defaultdict(list)
 N = 1279
-penalties = [3,1]
 
 for j in range(N):
     s = input()
