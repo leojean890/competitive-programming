@@ -37,9 +37,6 @@ for j in range(N):
 score = 0
 
 for index, elt in elts.items():
-    memo = {}
-    points = solve_system(elt[0][0], elt[0][1], elt[1][0], elt[1][1], elt[2][0], elt[2][1])
-    if points < sys.maxsize:
-        score += points
+    score += solve_system(elt[0][0], elt[0][1], elt[1][0], elt[1][1], elt[2][0], elt[2][1])
 
 print(score, process_time() - start_time)  # 73458657399094 0.015
