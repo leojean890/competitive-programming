@@ -38,7 +38,7 @@ for t in range(T):
     robots = nrobots
 
     if nbXEntre40et60 > 250 and neighbors > 300:
-        print(t,nbXEntre40et60, neighbors) # 7343 300 527
+        print(t+1,nbXEntre40et60, neighbors) # 7343 300 527
         lines = []
         for r in range(H):
             line = []
