@@ -16,7 +16,7 @@ for t in range(N+1):
             for i in range(H):
                 if current[i][j] == "#":
                     counter += 1
-            lines.append(counter-1)
+            lines.append(counter)
         if current[0] == "#####":
             keys.append(lines)
         else:
@@ -28,7 +28,7 @@ for t in range(N+1):
 counter = 0
 for key in keys:
     for lock in locks:
-        if all(key[i]+lock[i] <= H-2 for i in range(W)):
+        if all(key[i]+lock[i] <= H for i in range(W)):
             counter += 1
 
 print(counter,process_time()-start_time) # 3690 0.109
