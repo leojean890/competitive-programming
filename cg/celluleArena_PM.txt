@@ -1,0 +1,25 @@
+Hello !
+First, congratz to CG for this amazing contest, and to top players to have created such strong bots.
+I reached the overall 84th ranking (28th gold, 11th python overall) using heuristics.
+
+First, I check if I can find a necessary smart move by spawning tentacles.
+- w1 * distance (try to defend or attack more often if the opponent is close)
+- w2 * amount of units to defend (i.e I have to spawn a tentacle to protect an ally unit which has a lot of sons, to avoid the overall destruction of all sons)
+- w3 * amount of units to destroy (i.e I have to spawn a tentacle to kill an opponent unit which has a lot of sons, to destroy all its sons)
+
+
+
+1) tentacles
+
+                    currentBonus = 0 if _type == "TENTACLE" else 1.5
+
+                    if distToRoot[idd] < 10:
+                        currentBonus += 0.3 * (10 - distToRoot[idd])
+                            score = currentBonus + nbSons[idsPerCoords[(u, v)]] - 5 * depth
+
+
+- nbSons
+- distToRoot
+- resources vs takenResources
+- if len(roots)*(100-turn) > money[resType] => forbidden
+-
