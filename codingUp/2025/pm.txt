@@ -1,12 +1,8 @@
-C'était une bonne idée d'utiliser prim 🙂
-Moi je préfère kruskal en général aussi ! 
 
-Moi j'ai essayé d'autres trucs :
-random rollouts successifs ou recuit simulé à effectuer depuis un "bon" greedy
-choix du prochain node à visiter : parfois prendre le plus proche, parfois le deuxième, parfois le 3eme
-souvent aller chercher des graines au bout de exactement seedCapacity tours et tant qu'il m'en reste, aller planter. Mais parfois aller en chercher un peu avant car c'est proche par exemple
-(bcp de random dans mon code)
-optimiser parfaitement l'endroit d'où je plante
+- random rollouts successifs ou recuit simulé à effectuer depuis un "bon" greedy
+- choix du prochain node à visiter : parfois prendre le plus proche, parfois le deuxième, parfois le 3eme
+- souvent aller chercher des graines au bout de exactement seedCapacity tours et tant qu'il m'en reste, aller planter. Mais parfois aller en chercher un peu avant car c'est proche par exemple
+- optimiser parfaitement l'endroit d'où je plante
 1) si je peux planter sans bouger, le faire
 2) si je dois bouger, aller à la localisation la plus proche de ma localisation actuelle parmi celles qui sont à portée de la prochaine plante choisie
 3) si il y a plusieurs égalités parmi les emplacements obtenus en 2), aller (parmi eux) à la localisation la plus proche de la plante suivante N+1 choisie et s'y rendre avant de planter l'actuelle N
