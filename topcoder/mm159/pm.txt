@@ -1,0 +1,20 @@
+For each turn, I simulate some moves and score them.
+At first, I simulate angles+dist directly towards the currently visible apples.
+Then, I try to target +/- 60 degrees around apples in case there is an obstacle.
+And then if the obstacles is too big or close I try other moves to avoid them.
+
+When I simulate a move I splitted [mu-3.15*sigma, mu+3.15*sigma] in 8 equal intervals (uniform repartition) . I use the pdf function to obtain and then use the proba of each case in those splitted intervals
+ 
+I then score the current move as sum of each of those scores * itsProba
+My score is mostly the distance to the closest apple
+But if I hit an obstacle I use a big penalty (still using the proba of this event happening, got from the pdf function according to this value in the proba interval)
+ 
+I did nothing to consider gathering more than one apple in one move like counting the amount of gathered apples with each move  and each of its possible real directions in  [mu-3.15*sigma, mu+3.15*sigma]
+so in this case I used 8x8 intervals because I used the previous approach on both normal distributions
+
+but sullyper told me I should have simulated 8 angles and just consider the biggest possible distance, because the other collisions are included in the previous. And never choose an unsafe move 🙂
+but I considered 8x8 intervals so it's slow and I lack rollouts
+ 
+(8 angles x 8 distances each in the [mu-3. 15sigma,mu+3.15sigma] with uniform splitting
+
+I overfitted locally with a lot of tuning of my described approach on only 100 seeds. Sometimes I use more. I should have 🙂
