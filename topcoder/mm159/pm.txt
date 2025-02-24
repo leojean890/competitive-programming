@@ -1,3 +1,7 @@
+Hello, thanks @di for this nice interesting problem, and gratz to top players !
+
+I could only gather 4.5 x less apples than top players because I reached too few rollouts per turn and got often stuck because of obstacles. My approach is the following :
+
 For each turn, I simulate some moves and score them.
 At first, I simulate angles+dist directly towards the currently visible apples.
 Then, I try to target +/- 60 degrees around apples in case there is an obstacle.
