@@ -1,0 +1,47 @@
+On my side, each turn, I calculate :
+
+    sorted closestSlimesPerDepot
+    total amount of slimes on the map
+    closest slime and closest depot per harvester
+
+
+Then I have some logic for each harvester to go catching
+
+    its closest slime
+    or the closest slime of its closest depot
+    or to go put slime into closest depot
+    not sending 2 harvesters to catch the same slime...
+
+
+This kind of ifs :
+
+    if the current harvester has big load, I prefer going to depot else it would be risky
+    if the slime is too close to depot, I go catch it to protect the depot
+    in the end, go catch all the remaining slime
+    this ending phasis happens earlier if there are a lot of slime in the map
+    if the slime spreaded too much I go catch some of it else I may let it expand
+    if the current harvester has low load, I can more safely catch some slime
+
+
+                    if (bestDepotDistance == bestSlimeDistance || load[h] > C - 1) {
+                        best = bestDepot;
+                    } else if (Math.abs(bestSlimeX - bestDepotX) + Math.abs(bestSlimeY - bestDepotY) < 3) {
+                        best = bestSlime;
+                        chosen.add(N*bestSlime[0] + bestSlime[1]);
+                    } else if (nbSlime <= 11 * H && turn < 970-nbSlime) {
+                        best = bestDepot;
+                    } else if (load[h] == 0) {
+                        chosen.add(N*bestSlimeY + bestSlimeX);
+                        best = bestSlime;
+                    } else if (load[h] + bestSlimeDistance > bestDepotDistance + C / 6.0) {
+                        best = bestDepot;
+                    } else {
+                        chosen.add(N*bestSlimeY + bestSlimeX);
+                        best = bestSlime;
+                    }
+
+
+
+I tried other features that were too slow (10ms per turn) or worked less (like protecting the depots) 😄
+
+https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm160/finalSubmit.java 
