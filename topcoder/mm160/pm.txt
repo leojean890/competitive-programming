@@ -45,3 +45,8 @@ This kind of ifs :
 I tried other features that were too slow (10ms per turn) or worked less (like protecting the depots) 😄
 
 https://github.com/leojean890/competitive-programming/blob/main/topcoder/mm160/finalSubmit.java 
+
+I should have thought about the ideas like considering/calculating safe paths and act according to them, instead of just considering the distance and current load as a risk factor. 
+gaha's idea "a BS per harvester" is nice too including the fact to recalculate a second BS considering the first best paths positions of other harvesters already calculated/fixed (and the sorting of harvesters BS calculation order) 
+It's not easy to implem 
+and the ideas of not harvesting specific cells more likely to expand were good too 
