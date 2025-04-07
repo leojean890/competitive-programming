@@ -1,0 +1,14 @@
+- I applied k-means algorithm on the complete set of cities using the middle of rectangles as coordinates for the k-means.
+- During k means, I use the following constraints to limit each group size "no more than 3 groups should have more than 4 cities", "no more than VAR1 groups should have more than VAR2 cities" => it converges towards some set of groups of "close" cities having the right sizes.
+- Then, on each group, I reapply k-means algorithm on the global set of cities contained in this group to create some subgroups of "close" cities. Each subgroup has size L-1 except the last one just has the remaining cities.
+- Then, for each group, I send requests to the referee for each subgroup (containing maximally L-1 cities so it's respecting the rules) + another city of another subgroup of the current group to link the subgroups together among the full current group. 
+- I use the MSTs sent back by the referee to create all the final roads among each subgroup 
+
+I order the subgroups of a group the following way to link them together in a group : 
+- I calculate all distances between the centers of k-means clusters 2-per-2, and begin with the closest pair, I process those at first.
+- Then I greedily link the former chosen one with the closest_unused_yet_one until all of them are processed.
+
+https://github.com/leojean890/competitive-programming/blob/main/atcoder/ahc45/finalSubmit.py
+
+- The main problem of this approach is the fact that I base the whole logic on the center of the rectangles and not on real cities coordinates to (unsupervisedely) classify cities together and gather them as close as possible.
+- Maybe I should have used another language than python in order to have more time to classify cities with a global k-means + one k-means per group of size > L-1. But I lacked time to do this conversion :)
