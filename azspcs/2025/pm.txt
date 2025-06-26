@@ -1,0 +1,6 @@
+Regarding azspcs nearly magic Hexagons, I used SA and tried my best to use very short transitions (which are done between l181 and l209). I reached score 94.92/100 and rank 41th this way and most levels were solved in less than 10mn. Then for levels solved by less than 50 people I used several hours or never solved some of them (~ those which are solved by less than 42 people).
+
+To have faster rollouts, I used precomputed tabs linesPerIndex and scoresPerIndex. 
+For each transition, I'm just echanging 2 values in 2 random cells.
+To recalculate the score, I only update the scoresPerLine relative to the lines containing at least one among the 2 concerned values (exchanged)
+<https://github.com/leojean890/competitive-programming/blob/main/azspcs/2025/nearlyMagicHexagons.java>
