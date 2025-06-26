@@ -1,0 +1,22 @@
+ I use a dfs with a new depth when I catch a coin or when I kill a guard. I print in the end the actions enabling to reach best overall reached score.
+Very big problem : my way to navigate and try and avoid the guards to reach new targets 😒
+I randomized vectors trials and filled a PriorityQueue to go first in spots closer to a new coin. 
+I have a lot of misses (trial is in a Triangle) so it's slow 😒
+
+I wanted to go very fast to catch many coins, so if I do directly 50 depths in a row, I catch 50 coins/guards.
+Each newly reached depth is a newly catched coin or guard 
+And for each node in the priorityQueue (not in the dfs) I try to reach new locations... This part is hard 😄 
+I have a priorityQueue per dfs depth 🙂
+To look for new locations from the last reached coin or guard
+
+Instead of the stupid stuff I made l177-l215 to explore new states, I thought too late about trying to sample the map (500x500 or so, tune that number) and precompute what spots will be watched by each guard during each turn (modulo cycle size) so where I would be killed, I may have explored better and faster, I'm not sure...
+With my method I often get stuck after catching 10-20-30 coins...
+
+my way to search a new coin or guard is very bad and has many collisions with tryangles/is often stuck so I can't get all coins, my code stuck at one of them. 
+I catch all coins in seed 1 btw with 2300 pts 
+but in seed 2 I have like 20 coins max out of 100 😄
+because I stuck
+
+using the factor 10, I don't know how to explain why in my precise code I had a better score than the 400 
+I think because I used randomly sized moves.
+200/400 is better if we navigate to max size (A*)
