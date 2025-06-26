@@ -1,0 +1,20 @@
+I splitted the palette into 40 areas of size 10 (20 lines, 2 areas per line). 
+
+For each request among 1000, I did a new bruteforce enabling :
+
+- to discard between 0 and currentQuantity in any of those 40 areas (action 3)
+- to add some new paint (action 1)
+- to do nothing more and give to the painter the current paint of the area
+- to merge 2 areas and send the color and then reput the wall (with slight penalty depending on the current requestNumber because it decreases the diversity for the future) (I was reclosing it in the end of turns)
+- I choose the best area and then send it to the painter.
+I score all those many actions and take the best.
+
+I couldn't use a global approach such as SA because of this problem algo complexity
+Maybe BS could work if I knew how to do it with fast implem  😛 
+
+I couldn't combine the mixing with the other stuff (discard/add) I would have needed more time
+
+Fun stuff I encounter 4 TLEs and 3 WAs in final tests but had none on provisional/local 😄
+I lost 73 ranks from provisionals (331=>404), maybe that's not just that 😛
+I tuned locally using the 100 seeds files.txt available
+Not the referee logic to generate more 
