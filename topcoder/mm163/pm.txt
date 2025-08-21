@@ -1,0 +1,22 @@
+Hello ! Finally I'm ranked 17/44 with a score of 28.90 on provisionals.
+
+My approach is inspired by Magus's CSB PM. I copied the sim from the referee (AccurateDynamic / moveCar / ApplyCommand) and I use a SA per turn using 8 ms per turn.
+I use a state as a list of 16 succesives moves (accRight, accLeft) to be applied.
+A transition is generating a new random (accRight, accLeft) for one of the 16 moves.
+
+My scoring function is a combination of :
+- amount of crossed checkpoints (bonus if I reach one of them earlier among the 16 simulated turns)
+- distance to closest checkpoint from current positions
+- amount of crossed grid-cells in the bfs path to the closest checkpoint (bonus if I reach each of them earlier among the 16 simulated turns) and distance to the next one
+- big malus if my angular speed is too high (bigger malus if it happens earlier among the 16 simulated turns), else I was rotating endlessely :o:s
+- big malus if I'm going out in the grass (bigger malus if it happens earlier among the 16 simulated turns)
+
+My best reached scores per seed using this approach are the following.
+My best code is the following (+2 locally VS last submit but I use 9900ms instead of 9000..).
+
+One improvement axis would be to consider the TSP path instead of the "closest next checkpoint from current position"
+It would use some more time in addition to the SA per turn used times.
+
+In my replay of seed 1 I go straightforward to the goal (score 158 instead of my best which is 155).
+In my replay of seed 3 I get all checkpoints but my car wants to do some hiking in the meantime ;) (score 1041 instead of my best which is 553).
+In my replay of seed 2 I get 18 checkpoints out of 20 while struggling a bit and sometimes going out in the grass to have a better speed vector after restart, or sometimes my car manages to slow down before going out and get a bettter speed vector then.
